@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "lib": ["es2017", "esnext.asynciterable"],
+    "target": "es2017",
+    "module": "commonjs",
+    "outDir": "../build/server",
+    "resolveJsonModule": true
+  },
+  "include": ["**/*.ts", "../types"]
+}

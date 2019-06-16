@@ -1,0 +1,129 @@
+{
+  "name": "untitled",
+  "author": "Chanlito Hem <chanlitohem@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "analyze": "nuxt build --analyze",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "build": "npm-run-all --parallel build:client build:server",
+    "build:client": "nuxt build",
+    "build:server": "tsc -p server",
+    "dev": "ts-node-dev --project server/tsconfig.json --respawn --require dotenv/config server/index.ts",
+    "start": "NODE_ENV=production node dist/server/index.js"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.2",
+    "apollo-link": "^1.2.11",
+    "apollo-link-http": "^1.5.14",
+    "apollo-server-core": "^2.6.3",
+    "apollo-server-express": "^2.6.3",
+    "bcrypt": "^3.0.6",
+    "boxen": "^4.1.0",
+    "chalk": "^2.4.2",
+    "class-validator": "^0.9.1",
+    "cookie-parser": "^1.4.4",
+    "cookie-session": "^1.3.3",
+    "cookies": "^0.7.3",
+    "express": "^4.17.1",
+    "graphql": "^14.2.1",
+    "graphql-tag": "^2.10.1",
+    "graphql-tools": "^4.0.4",
+    "helmet": "^3.18.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "nanoid": "^2.0.3",
+    "node-fetch": "^2.6.0",
+    "nodemailer": "^6.2.1",
+    "nuxt": "^2.8.1",
+    "nuxt-class-component": "^1.3.0",
+    "nuxt-property-decorator": "^2.3.0",
+    "prisma-client-lib": "^1.34.0",
+    "reflect-metadata": "^0.1.13",
+    "source-map-support": "^0.5.12",
+    "type-graphql": "^0.17.4",
+    "typedi": "^0.8.0",
+    "vee-validate": "^2.2.10",
+    "vue-apollo": "^3.0.0-beta.30",
+    "vue-apollo-decorator": "^0.1.2",
+    "vuetify": "^2.0.0-beta.2"
+  },
+  "devDependencies": {
+    "@babel/runtime-corejs2": "^7.4.5",
+    "@graphql-codegen/cli": "^1.0.0",
+    "@graphql-codegen/typescript": "^1.0.0",
+    "@graphql-codegen/typescript-operations": "^1.0.0",
+    "@graphql-codegen/typescript-resolvers": "^1.0.0",
+    "@mdi/font": "^3.6.95",
+    "@nuxtjs/style-resources": "^0.1.2",
+    "@types/bcrypt": "^3.0.0",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/cookie-session": "^2.0.37",
+    "@types/cookies": "^0.7.2",
+    "@types/express": "^4.17.0",
+    "@types/graphql": "^14.2.0",
+    "@types/helmet": "0.0.43",
+    "@types/lodash": "^4.14.134",
+    "@types/nanoid": "^2.0.0",
+    "@types/node": "^12.0.8",
+    "@types/nodemailer": "^6.2.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "@vue/eslint-config-typescript": "^4.0.0",
+    "core-js": "^2.6.9",
+    "deepmerge": "^3.2.0",
+    "dotenv": "^8.0.0",
+    "eslint": "^5.16.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-vue": "^5.2.2",
+    "fibers": "^4.0.1",
+    "fork-ts-checker-webpack-plugin": "^1.3.5",
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "prisma": "^1.34.0",
+    "sass": "^1.21.0",
+    "sass-loader": "^7.1.0",
+    "ts-loader": "^6.0.2",
+    "ts-node": "^8.2.0",
+    "ts-node-dev": "^1.0.0-pre.39",
+    "typescript": "3.4.5",
+    "vuetify-loader": "^1.2.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:vue/recommended",
+      "@vue/prettier",
+      "@vue/typescript"
+    ],
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser"
+    },
+    "rules": {
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        {
+          "args": "none",
+          "ignoreRestSiblings": true
+        }
+      ],
+      "no-console": "off"
+    }
+  },
+  "nodemonConfig": {
+    "exec": "ts-node --transpile-only --project server/tsconfig.json --require dotenv/config server/index.ts",
+    "ext": "js, ts, graphql",
+    "watch": [
+      "server",
+      "nuxt.config.js"
+    ]
+  },
+  "prettier": {
+    "quoteProps": "consistent",
+    "singleQuote": true,
+    "trailingComma": "all"
+  }
+}

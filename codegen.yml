@@ -1,0 +1,18 @@
+schema:
+  - ./server/generated/schema.graphql
+
+generates:
+  ./client/graphql/types/codegen.ts:
+    documents:
+      - ./client/graphql/documents/fragments.ts
+      - ./client/graphql/documents/mutations.ts
+      - ./client/graphql/documents/queries.ts
+      - ./client/graphql/documents/subscriptions.ts
+    config:
+      contextType: ./context#Context
+      enumsAsTypes: true
+    plugins:
+      - typescript
+      - typescript-resolvers
+
+overwrite: true

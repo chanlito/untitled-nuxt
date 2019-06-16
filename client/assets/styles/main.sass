@@ -1,0 +1,19 @@
+@import variables
+@import mixins
+@import utilities
+
+.v-messages.error--text
+  .v-messages__wrapper
+    .v-messages__message
+      display: flex
+      align-items: flex-start
+      font-weight: 400
+
+      &::before
+        content: ' '
+        display: inline-block
+        background-image: url('~@/assets/icons/exclamation-mark.svg')
+        background-size: 18px 18px
+        height: 18px
+        width: 18px
+        margin-right: 4px

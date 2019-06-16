@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["dom", "esnext", "esnext.asynciterable"],
+    "baseUrl": "client",
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "client/**/*.js",
+    "client/**/*.jsx",
+    "client/**/*.ts",
+    "client/**/*.tsx",
+    "client/**/*.vue",
+    "types"
+  ],
+  "exclude": [
+    ".nuxt",
+    ".vscode",
+    "build",
+    "coverage",
+    "dist",
+    "prisma",
+    "node_modules"
+  ]
+}

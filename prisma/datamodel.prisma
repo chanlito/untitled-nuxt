@@ -1,0 +1,31 @@
+type User {
+  id: ID! @id
+  email: String! @unique
+  emailConfirmed: Boolean! @default(value: false)
+  fullName: String!
+  role: Role!
+  password: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  securityTokens: [SecurityToken!]! @relation(name: "UserSecurityTokens", onDelete: CASCADE)
+}
+
+type SecurityToken {
+  id: ID! @id
+  token: String! @unique
+  type: SecurityTokenType!
+  expiredAt: DateTime!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  user: User! @relation(link: INLINE, name: "UserSecurityTokens")
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum SecurityTokenType {
+  EMAIL_CONFIRMATION
+  RESET_PASSWORD
+}

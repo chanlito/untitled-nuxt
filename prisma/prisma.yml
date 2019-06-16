@@ -1,0 +1,17 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+
+secret: ${env:PRISMA_SECRET}
+
+datamodel: datamodel.prisma
+
+generate:
+  - generator: typescript-client
+    output: ../server/generated/prisma-client
+
+# seed:
+#   import: seed.prisma
+
+hooks:
+  post-deploy:
+    - npx prisma generate
+    - npx prettier server/generated/prisma-client/**/*.ts --config package.json --write

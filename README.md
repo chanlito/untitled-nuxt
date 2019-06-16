@@ -1,6 +1,8 @@
 # Untitled
 
-A template project for building SSR web applications. (This is still a work in progress)
+A template project for building SSR web applications.
+
+![Untiled](https://user-images.githubusercontent.com/15667259/59566463-cf574380-908a-11e9-80c7-7277c9548bc5.png)
 
 ## Featuring
 

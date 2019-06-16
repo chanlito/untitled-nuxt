@@ -3,9 +3,11 @@ import 'reflect-metadata';
 import { displayStartupMessage } from './lib/fmt';
 import { createGraphQLServer } from './lib/server';
 
+const { PORT = '9000' } = process.env;
+
 (async () => {
   const { server } = await createGraphQLServer();
-  server.listen(process.env.PORT, () => displayStartupMessage());
+  server.listen(PORT, () => displayStartupMessage());
 })()
   .then(() => {
     process.on('SIGTERM', () => process.exit(0));

@@ -5,13 +5,13 @@
   "private": true,
   "scripts": {
     "analyze": "nuxt build --analyze",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf build",
     "prebuild": "npm run clean",
     "build": "npm-run-all --parallel build:client build:server",
     "build:client": "nuxt build",
     "build:server": "tsc -p server",
     "dev": "ts-node-dev --project server/tsconfig.json --respawn --require dotenv/config server/index.ts",
-    "start": "NODE_ENV=production node dist/server/index.js"
+    "start": "NODE_ENV=production node build/server/index.js"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.6.2",

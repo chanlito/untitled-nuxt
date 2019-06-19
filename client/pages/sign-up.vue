@@ -1,80 +1,70 @@
 <template>
   <form novalidate @submit.prevent="handleSubmit">
-    <v-card class="sign-up elevation-3">
-      <v-layout class="sign-up__avatar" column align-center justify-center>
-        <v-icon
-          class="mb-1 cursor-pointer"
-          color="accent"
-          :size="64"
-          @click="switchTheme"
-          v-text="'mdi-shield-lock'"
-        />
-      </v-layout>
-      <v-layout class="sign-up__content" column>
-        <v-text-field
-          v-model="email"
-          v-validate="{ required: true, email: true }"
-          append-icon="mdi-email-variant"
-          autocomplete="off"
-          color="accent"
-          dense
-          label="Email"
-          name="email"
-          outlined
-          required
-          :error-messages="errors.collect('email')"
-        />
-        <v-text-field
-          v-model="password"
-          v-validate="{ required: true }"
-          autocomplete="off"
-          color="accent"
-          dense
-          label="Password"
-          name="password"
-          outlined
-          required
-          :append-icon="
-            showPassword ? 'mdi-eye-outline' : 'mdi-eye-off-outline'
-          "
-          :type="showPassword ? 'text' : 'password'"
-          :error-messages="errors.collect('password')"
-          @click:append="showPassword = !showPassword"
-        />
-        <v-text-field
-          v-model="fullName"
-          v-validate="{ required: true }"
-          append-icon="mdi-account-circle-outline"
-          autocomplete="off"
-          color="accent"
-          dense
-          label="Full Name"
-          name="fullName"
-          outlined
-          required
-          data-vv-as="full name"
-          :error-messages="errors.collect('fullName')"
-        />
-      </v-layout>
-      <v-layout class="sign-up__actions" align-center column>
-        <v-btn
-          :disabled="!!loading"
-          :loading="!!loading"
-          block
-          class="sign-up__actions--submit"
-          color="accent"
-          type="submit"
-        >
-          Sign Up
-        </v-btn>
-        <nuxt-link
-          class="sign-up__actions--link mt-3 body-2 accent--text"
-          :to="{ name: 'sign-in' }"
-        >
-          Already have an account?
-        </nuxt-link>
-      </v-layout>
-    </v-card>
+    <!-- Fields -->
+    <v-text-field
+      v-model="email"
+      v-validate="{ required: true, email: true }"
+      append-icon="mdi-email-variant"
+      autocomplete="off"
+      color="accent"
+      dense
+      label="Email"
+      name="email"
+      outlined
+      required
+      :error-messages="errors.collect('email')"
+    />
+    <v-text-field
+      v-model="password"
+      v-validate="{ required: true }"
+      autocomplete="off"
+      color="accent"
+      dense
+      label="Password"
+      name="password"
+      outlined
+      required
+      :append-icon="showPassword ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
+      :type="showPassword ? 'text' : 'password'"
+      :error-messages="errors.collect('password')"
+      @click:append="showPassword = !showPassword"
+    />
+    <v-text-field
+      v-model="fullName"
+      v-validate="{ required: true }"
+      append-icon="mdi-account-circle-outline"
+      autocomplete="off"
+      color="accent"
+      dense
+      label="Full Name"
+      name="fullName"
+      outlined
+      required
+      data-vv-as="full name"
+      :error-messages="errors.collect('fullName')"
+    />
+
+    <!-- Submit -->
+    <v-btn
+      :disabled="!!loading"
+      :loading="!!loading"
+      block
+      class="sign-up__actions--submit"
+      color="accent"
+      type="submit"
+    >
+      Sign Up
+    </v-btn>
+
+    <!-- Links -->
+    <v-layout justify-center>
+      <nuxt-link
+        class="sign-up__actions--link mt-3 body-2 accent--text text-xs-center"
+        :to="{ name: 'sign-in' }"
+      >
+        Already have an account?
+      </nuxt-link>
+    </v-layout>
   </form>
 </template>
 
@@ -121,16 +111,6 @@ export default class SignUp extends mixins(ThemeMixin, ValidationMixin) {
 
 <style lang="sass" scoped>
 .sign-up
-  border-radius: 8px
-  padding: 48px
-  +screen(xs-only)
-    padding: 0
-  +screen(xs-only)
-    background-color: transparent
-    border: none
-    box-shadow: none !important
-  &__avatar
-    padding-bottom: 24px
   &__actions
     &--submit.accent
       &.theme--light

@@ -48,7 +48,7 @@
     "vee-validate": "^2.2.10",
     "vue-apollo": "^3.0.0-beta.30",
     "vue-apollo-decorator": "^0.1.2",
-    "vuetify": "^2.0.0-beta.2"
+    "vuetify": "^2.0.0-beta.3"
   },
   "devDependencies": {
     "@babel/runtime-corejs2": "^7.4.5",
@@ -89,7 +89,7 @@
     "sass-loader": "^7.1.0",
     "ts-loader": "^6.0.3",
     "ts-node": "^8.3.0",
-    "ts-node-dev": "^1.0.0-pre.39",
+    "ts-node-dev": "^1.0.0-pre.40",
     "typescript": "3.4.5",
     "vuetify-loader": "^1.2.2"
   },

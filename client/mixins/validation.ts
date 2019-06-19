@@ -1,4 +1,5 @@
 import { ValidationError } from 'class-validator';
+import capitalize from 'lodash/capitalize';
 import { Component, mixins } from 'nuxt-property-decorator';
 
 @Component
@@ -16,7 +17,7 @@ export class ValidationMixin extends mixins() {
           validationErrors.forEach((j: ValidationError) => {
             this.errors.add({
               field: j.property,
-              msg: Object.values(j.constraints).join(', '),
+              msg: capitalize(Object.values(j.constraints)[0]),
             });
           });
         } else {

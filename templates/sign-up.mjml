@@ -1,0 +1,32 @@
+<mjml>
+  <mj-include path="./includes/head.mjml" />
+  <mj-body>
+    <mj-include path="./includes/title.mjml" />
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          Hey <b>{fullName}</b>,
+        </mj-text>
+        <mj-text>
+          Thank you so much for joining <b>Untitled</b>!
+          To finish signing up, you just need to confirm that we got your email right.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-button background-color="#673AB7" border-radius="4px" href="{href}">
+          Confirm Your Email
+        </mj-button>
+      </mj-column>
+    </mj-section>
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="12px" color="#888">
+          Button not working? Try pasting the following link into your browser: <br>
+          <a href="{href}">{href}</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

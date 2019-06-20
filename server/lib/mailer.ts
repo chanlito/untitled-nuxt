@@ -1,4 +1,9 @@
+import fs from 'fs';
+import { promisify } from 'util';
+import mjml2html from 'mjml';
 import nodemailer, { SendMailOptions } from 'nodemailer';
+import path from 'path';
+import format from 'string-template';
 import { Service } from 'typedi';
 
 @Service()
@@ -45,6 +50,28 @@ export class Mailer {
 
     const previewURL = nodemailer.getTestMessageUrl(info);
     if (previewURL) console.log('Preview URL: %s', previewURL);
+  }
+
+  async sendMailTemplate(
+    to: string,
+    subject: string,
+    mjmlFileName: string,
+    metadata: { [key: string]: string },
+  ) {
+    const mjml = format(
+      await promisify(fs.readFile)(
+        path.resolve('templates', `${mjmlFileName}.mjml`),
+        'utf-8',
+      ),
+      metadata,
+    );
+    const { html, errors } = mjml2html(mjml, {
+      minify: true,
+      validationLevel: 'strict',
+      filePath: path.resolve('templates', 'includes'),
+    });
+    if (errors.length > 0) return false;
+    return this.sendMail({ to, subject, html });
   }
 }
 

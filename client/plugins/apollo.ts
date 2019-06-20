@@ -24,6 +24,7 @@ export default function(
 
   const httpLink = new HttpLink({
     uri: `http://localhost:${env.PORT}/graphql`,
+    credentials: 'include',
   });
 
   const link = from([httpLink]);

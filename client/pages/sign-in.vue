@@ -86,7 +86,6 @@ export default class SignIn extends mixins(ThemeMixin, ValidationMixin) {
       });
       this.$router.replace({ name: 'index' });
     } catch (err) {
-      console.error(err);
       this.mapErrorToFields(err, {
         email: ['USER_NOT_FOUND'],
         password: ['INCORRECT_PASSWORD'],

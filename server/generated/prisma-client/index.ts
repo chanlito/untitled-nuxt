@@ -2,13 +2,13 @@
 // Please don't change this file manually but run `prisma generate` to update it.
 // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-import { DocumentNode } from "graphql";
+import { DocumentNode } from 'graphql';
 import {
   makePrismaClientClass,
   BaseClientOptions,
-  Model
-} from "prisma-client-lib";
-import { typeDefs } from "./prisma-schema";
+  Model,
+} from 'prisma-client-lib';
+import { typeDefs } from './prisma-schema';
 
 export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
   U[keyof U];
@@ -32,7 +32,7 @@ export interface Prisma {
   $exists: Exists;
   $graphql: <T = any>(
     query: string,
-    variables?: { [key: string]: any }
+    variables?: { [key: string]: any },
   ) => Promise<T>;
 
   /**
@@ -40,7 +40,7 @@ export interface Prisma {
    */
 
   securityToken: (
-    where: SecurityTokenWhereUniqueInput
+    where: SecurityTokenWhereUniqueInput,
   ) => SecurityTokenNullablePromise;
   securityTokens: (args?: {
     where?: SecurityTokenWhereInput;
@@ -100,10 +100,10 @@ export interface Prisma {
     update: SecurityTokenUpdateInput;
   }) => SecurityTokenPromise;
   deleteSecurityToken: (
-    where: SecurityTokenWhereUniqueInput
+    where: SecurityTokenWhereUniqueInput,
   ) => SecurityTokenPromise;
   deleteManySecurityTokens: (
-    where?: SecurityTokenWhereInput
+    where?: SecurityTokenWhereInput,
   ) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
@@ -131,10 +131,10 @@ export interface Prisma {
 
 export interface Subscription {
   securityToken: (
-    where?: SecurityTokenSubscriptionWhereInput
+    where?: SecurityTokenSubscriptionWhereInput,
   ) => SecurityTokenSubscriptionPayloadSubscription;
   user: (
-    where?: UserSubscriptionWhereInput
+    where?: UserSubscriptionWhereInput,
   ) => UserSubscriptionPayloadSubscription;
 }
 
@@ -146,43 +146,43 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type Role = "ADMIN" | "USER";
+export type Role = 'ADMIN' | 'USER';
 
 export type SecurityTokenOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "value_ASC"
-  | "value_DESC"
-  | "type_ASC"
-  | "type_DESC"
-  | "expiredAt_ASC"
-  | "expiredAt_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'value_ASC'
+  | 'value_DESC'
+  | 'type_ASC'
+  | 'type_DESC'
+  | 'expiredAt_ASC'
+  | 'expiredAt_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
-export type SecurityTokenType = "EMAIL_CONFIRMATION" | "RESET_PASSWORD";
+export type SecurityTokenType = 'EMAIL_CONFIRMATION' | 'RESET_PASSWORD';
 
 export type UserOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "email_ASC"
-  | "email_DESC"
-  | "emailConfirmed_ASC"
-  | "emailConfirmed_DESC"
-  | "fullName_ASC"
-  | "fullName_DESC"
-  | "role_ASC"
-  | "role_DESC"
-  | "password_ASC"
-  | "password_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
+  | 'id_ASC'
+  | 'id_DESC'
+  | 'email_ASC'
+  | 'email_DESC'
+  | 'emailConfirmed_ASC'
+  | 'emailConfirmed_DESC'
+  | 'fullName_ASC'
+  | 'fullName_DESC'
+  | 'role_ASC'
+  | 'role_DESC'
+  | 'password_ASC'
+  | 'password_DESC'
+  | 'createdAt_ASC'
+  | 'createdAt_DESC'
+  | 'updatedAt_ASC'
+  | 'updatedAt_DESC';
 
-export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+export type MutationType = 'CREATED' | 'UPDATED' | 'DELETED';
 
 export interface SecurityTokenUpdateInput {
   value?: Maybe<String>;
@@ -1023,21 +1023,21 @@ export type String = string;
 
 export const models: Model[] = [
   {
-    name: "User",
-    embedded: false
+    name: 'User',
+    embedded: false,
   },
   {
-    name: "SecurityToken",
-    embedded: false
+    name: 'SecurityToken',
+    embedded: false,
   },
   {
-    name: "Role",
-    embedded: false
+    name: 'Role',
+    embedded: false,
   },
   {
-    name: "SecurityTokenType",
-    embedded: false
-  }
+    name: 'SecurityTokenType',
+    embedded: false,
+  },
 ];
 
 /**
@@ -1047,7 +1047,7 @@ export const models: Model[] = [
 export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
   models,
-  endpoint: `${process.env["PRISMA_ENDPOINT"]}`,
-  secret: `${process.env["PRISMA_SECRET"]}`
+  endpoint: `${process.env['PRISMA_ENDPOINT']}`,
+  secret: `${process.env['PRISMA_SECRET']}`,
 });
 export const prisma = new Prisma();

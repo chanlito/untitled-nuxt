@@ -151,8 +151,8 @@ export type Role = "ADMIN" | "USER";
 export type SecurityTokenOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "token_ASC"
-  | "token_DESC"
+  | "value_ASC"
+  | "value_DESC"
   | "type_ASC"
   | "type_DESC"
   | "expiredAt_ASC"
@@ -185,7 +185,7 @@ export type UserOrderByInput =
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
 export interface SecurityTokenUpdateInput {
-  token?: Maybe<String>;
+  value?: Maybe<String>;
   type?: Maybe<SecurityTokenType>;
   expiredAt?: Maybe<DateTimeInput>;
   user?: Maybe<UserUpdateOneRequiredWithoutSecurityTokensInput>;
@@ -193,7 +193,7 @@ export interface SecurityTokenUpdateInput {
 
 export type SecurityTokenWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
-  token?: Maybe<String>;
+  value?: Maybe<String>;
 }>;
 
 export interface SecurityTokenUpdateWithWhereUniqueWithoutUserInput {
@@ -353,14 +353,14 @@ export interface SecurityTokenSubscriptionWhereInput {
 
 export interface SecurityTokenCreateInput {
   id?: Maybe<ID_Input>;
-  token: String;
+  value: String;
   type: SecurityTokenType;
   expiredAt: DateTimeInput;
   user: UserCreateOneWithoutSecurityTokensInput;
 }
 
 export interface SecurityTokenUpdateManyDataInput {
-  token?: Maybe<String>;
+  value?: Maybe<String>;
   type?: Maybe<SecurityTokenType>;
   expiredAt?: Maybe<DateTimeInput>;
 }
@@ -385,20 +385,20 @@ export interface SecurityTokenScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  token?: Maybe<String>;
-  token_not?: Maybe<String>;
-  token_in?: Maybe<String[] | String>;
-  token_not_in?: Maybe<String[] | String>;
-  token_lt?: Maybe<String>;
-  token_lte?: Maybe<String>;
-  token_gt?: Maybe<String>;
-  token_gte?: Maybe<String>;
-  token_contains?: Maybe<String>;
-  token_not_contains?: Maybe<String>;
-  token_starts_with?: Maybe<String>;
-  token_not_starts_with?: Maybe<String>;
-  token_ends_with?: Maybe<String>;
-  token_not_ends_with?: Maybe<String>;
+  value?: Maybe<String>;
+  value_not?: Maybe<String>;
+  value_in?: Maybe<String[] | String>;
+  value_not_in?: Maybe<String[] | String>;
+  value_lt?: Maybe<String>;
+  value_lte?: Maybe<String>;
+  value_gt?: Maybe<String>;
+  value_gte?: Maybe<String>;
+  value_contains?: Maybe<String>;
+  value_not_contains?: Maybe<String>;
+  value_starts_with?: Maybe<String>;
+  value_not_starts_with?: Maybe<String>;
+  value_ends_with?: Maybe<String>;
+  value_not_ends_with?: Maybe<String>;
   type?: Maybe<SecurityTokenType>;
   type_not?: Maybe<SecurityTokenType>;
   type_in?: Maybe<SecurityTokenType[] | SecurityTokenType>;
@@ -471,20 +471,20 @@ export interface SecurityTokenWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  token?: Maybe<String>;
-  token_not?: Maybe<String>;
-  token_in?: Maybe<String[] | String>;
-  token_not_in?: Maybe<String[] | String>;
-  token_lt?: Maybe<String>;
-  token_lte?: Maybe<String>;
-  token_gt?: Maybe<String>;
-  token_gte?: Maybe<String>;
-  token_contains?: Maybe<String>;
-  token_not_contains?: Maybe<String>;
-  token_starts_with?: Maybe<String>;
-  token_not_starts_with?: Maybe<String>;
-  token_ends_with?: Maybe<String>;
-  token_not_ends_with?: Maybe<String>;
+  value?: Maybe<String>;
+  value_not?: Maybe<String>;
+  value_in?: Maybe<String[] | String>;
+  value_not_in?: Maybe<String[] | String>;
+  value_lt?: Maybe<String>;
+  value_lte?: Maybe<String>;
+  value_gt?: Maybe<String>;
+  value_gte?: Maybe<String>;
+  value_contains?: Maybe<String>;
+  value_not_contains?: Maybe<String>;
+  value_starts_with?: Maybe<String>;
+  value_not_starts_with?: Maybe<String>;
+  value_ends_with?: Maybe<String>;
+  value_not_ends_with?: Maybe<String>;
   type?: Maybe<SecurityTokenType>;
   type_not?: Maybe<SecurityTokenType>;
   type_in?: Maybe<SecurityTokenType[] | SecurityTokenType>;
@@ -544,14 +544,14 @@ export interface SecurityTokenCreateManyWithoutUserInput {
 }
 
 export interface SecurityTokenUpdateManyMutationInput {
-  token?: Maybe<String>;
+  value?: Maybe<String>;
   type?: Maybe<SecurityTokenType>;
   expiredAt?: Maybe<DateTimeInput>;
 }
 
 export interface SecurityTokenCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
-  token: String;
+  value: String;
   type: SecurityTokenType;
   expiredAt: DateTimeInput;
 }
@@ -581,7 +581,7 @@ export interface UserSubscriptionWhereInput {
 }
 
 export interface SecurityTokenUpdateWithoutUserDataInput {
-  token?: Maybe<String>;
+  value?: Maybe<String>;
   type?: Maybe<SecurityTokenType>;
   expiredAt?: Maybe<DateTimeInput>;
 }
@@ -634,7 +634,7 @@ export interface UserPreviousValuesSubscription
 
 export interface SecurityToken {
   id: ID_Output;
-  token: String;
+  value: String;
   type: SecurityTokenType;
   expiredAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -645,7 +645,7 @@ export interface SecurityTokenPromise
   extends Promise<SecurityToken>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  token: () => Promise<String>;
+  value: () => Promise<String>;
   type: () => Promise<SecurityTokenType>;
   expiredAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -657,7 +657,7 @@ export interface SecurityTokenSubscription
   extends Promise<AsyncIterator<SecurityToken>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  token: () => Promise<AsyncIterator<String>>;
+  value: () => Promise<AsyncIterator<String>>;
   type: () => Promise<AsyncIterator<SecurityTokenType>>;
   expiredAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -669,7 +669,7 @@ export interface SecurityTokenNullablePromise
   extends Promise<SecurityToken | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  token: () => Promise<String>;
+  value: () => Promise<String>;
   type: () => Promise<SecurityTokenType>;
   expiredAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -764,7 +764,7 @@ export interface UserSubscriptionPayloadSubscription
 
 export interface SecurityTokenPreviousValues {
   id: ID_Output;
-  token: String;
+  value: String;
   type: SecurityTokenType;
   expiredAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -775,7 +775,7 @@ export interface SecurityTokenPreviousValuesPromise
   extends Promise<SecurityTokenPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  token: () => Promise<String>;
+  value: () => Promise<String>;
   type: () => Promise<SecurityTokenType>;
   expiredAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -786,7 +786,7 @@ export interface SecurityTokenPreviousValuesSubscription
   extends Promise<AsyncIterator<SecurityTokenPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  token: () => Promise<AsyncIterator<String>>;
+  value: () => Promise<AsyncIterator<String>>;
   type: () => Promise<AsyncIterator<SecurityTokenType>>;
   expiredAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;

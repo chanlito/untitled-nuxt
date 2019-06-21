@@ -10,6 +10,12 @@ export class IncorrectPasswordError extends ApolloError {
   }
 }
 
+export class SecurityTokenNotFoundError extends ApolloError {
+  constructor() {
+    super('Security token was not found', 'SECURITY_TOKEN_NOT_FOUND');
+  }
+}
+
 export class UnauthenticatedError extends AuthenticationError {
   constructor() {
     super('You are not authenticated');

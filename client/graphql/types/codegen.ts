@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { Context } from './context';
 export type Maybe<T> = T | null;
+export type MaybePromise<T> = Promise<T> | T;
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -18,11 +19,21 @@ export type AppBar = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  resetPassword?: Maybe<Scalars['Boolean']>;
+  sendResetPasswordLink?: Maybe<Scalars['Boolean']>;
   signUp: User;
   signIn: User;
   signOut?: Maybe<Scalars['Boolean']>;
   setAppBarTitle: Scalars['String'];
   switchTheme: ThemeVariant;
+};
+
+export type MutationResetPasswordArgs = {
+  input: ResetPasswordInput;
+};
+
+export type MutationSendResetPasswordLinkArgs = {
+  input: SendResetPasswordLinkInput;
 };
 
 export type MutationSignUpArgs = {
@@ -44,12 +55,17 @@ export type Query = {
   theme: Theme;
 };
 
+export type ResetPasswordInput = {
+  token: Scalars['String'];
+  password: Scalars['String'];
+};
+
 export type Role = 'ADMIN' | 'USER';
 
 export type SecurityToken = {
   __typename?: 'SecurityToken';
   id: Scalars['ID'];
-  token: Scalars['String'];
+  value: Scalars['String'];
   type: SecurityTokenType;
   expiredAt: Scalars['String'];
   createdAt: Scalars['String'];
@@ -57,6 +73,10 @@ export type SecurityToken = {
 };
 
 export type SecurityTokenType = 'EMAIL_CONFIRMATION' | 'RESET_PASSWORD';
+
+export type SendResetPasswordLinkInput = {
+  email: Scalars['String'];
+};
 
 export type SignInInput = {
   email: Scalars['String'];
@@ -157,19 +177,21 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: {};
-  User: User;
-  ID: Scalars['ID'];
-  String: Scalars['String'];
-  Boolean: Scalars['Boolean'];
+  Query: MaybePromise<{}>;
+  User: MaybePromise<User>;
+  ID: MaybePromise<Scalars['ID']>;
+  String: MaybePromise<Scalars['String']>;
+  Boolean: MaybePromise<Scalars['Boolean']>;
   Role: Role;
-  AppBar: AppBar;
-  Theme: Theme;
+  AppBar: MaybePromise<AppBar>;
+  Theme: MaybePromise<Theme>;
   ThemeVariant: ThemeVariant;
-  Mutation: {};
+  Mutation: MaybePromise<{}>;
+  ResetPasswordInput: ResetPasswordInput;
+  SendResetPasswordLinkInput: SendResetPasswordLinkInput;
   SignUpInput: SignUpInput;
   SignInInput: SignInInput;
-  SecurityToken: SecurityToken;
+  SecurityToken: MaybePromise<SecurityToken>;
   SecurityTokenType: SecurityTokenType;
 };
 
@@ -184,6 +206,18 @@ export type MutationResolvers<
   ContextType = Context,
   ParentType = ResolversTypes['Mutation']
 > = {
+  resetPassword?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    MutationResetPasswordArgs
+  >;
+  sendResetPasswordLink?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    MutationSendResetPasswordLinkArgs
+  >;
   signUp?: Resolver<
     ResolversTypes['User'],
     ParentType,
@@ -224,7 +258,7 @@ export type SecurityTokenResolvers<
   ParentType = ResolversTypes['SecurityToken']
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['SecurityTokenType'], ParentType, ContextType>;
   expiredAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

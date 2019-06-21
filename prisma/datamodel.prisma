@@ -12,7 +12,7 @@ type User {
 
 type SecurityToken {
   id: ID! @id
-  token: String! @unique
+  value: String! @unique
   type: SecurityTokenType!
   expiredAt: DateTime!
   createdAt: DateTime! @createdAt

@@ -8,10 +8,10 @@ export class SecurityToken implements ISecurityToken {
   readonly id: string;
 
   @Field()
-  readonly token: string;
+  readonly value: string;
 
   @Field(type => SecurityTokenType)
-  readonly type: SecurityTokenType;
+  readonly type: 'EMAIL_CONFIRMATION' | 'RESET_PASSWORD';
 
   @Field()
   readonly expiredAt: string;

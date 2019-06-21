@@ -67,7 +67,7 @@ enum Role {
 
 type SecurityToken {
   id: ID!
-  token: String!
+  value: String!
   type: SecurityTokenType!
   expiredAt: DateTime!
   createdAt: DateTime!
@@ -83,7 +83,7 @@ type SecurityTokenConnection {
 
 input SecurityTokenCreateInput {
   id: ID
-  token: String!
+  value: String!
   type: SecurityTokenType!
   expiredAt: DateTime!
   user: UserCreateOneWithoutSecurityTokensInput!
@@ -96,7 +96,7 @@ input SecurityTokenCreateManyWithoutUserInput {
 
 input SecurityTokenCreateWithoutUserInput {
   id: ID
-  token: String!
+  value: String!
   type: SecurityTokenType!
   expiredAt: DateTime!
 }
@@ -109,8 +109,8 @@ type SecurityTokenEdge {
 enum SecurityTokenOrderByInput {
   id_ASC
   id_DESC
-  token_ASC
-  token_DESC
+  value_ASC
+  value_DESC
   type_ASC
   type_DESC
   expiredAt_ASC
@@ -123,7 +123,7 @@ enum SecurityTokenOrderByInput {
 
 type SecurityTokenPreviousValues {
   id: ID!
-  token: String!
+  value: String!
   type: SecurityTokenType!
   expiredAt: DateTime!
   createdAt: DateTime!
@@ -145,20 +145,20 @@ input SecurityTokenScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  token: String
-  token_not: String
-  token_in: [String!]
-  token_not_in: [String!]
-  token_lt: String
-  token_lte: String
-  token_gt: String
-  token_gte: String
-  token_contains: String
-  token_not_contains: String
-  token_starts_with: String
-  token_not_starts_with: String
-  token_ends_with: String
-  token_not_ends_with: String
+  value: String
+  value_not: String
+  value_in: [String!]
+  value_not_in: [String!]
+  value_lt: String
+  value_lte: String
+  value_gt: String
+  value_gte: String
+  value_contains: String
+  value_not_contains: String
+  value_starts_with: String
+  value_not_starts_with: String
+  value_ends_with: String
+  value_not_ends_with: String
   type: SecurityTokenType
   type_not: SecurityTokenType
   type_in: [SecurityTokenType!]
@@ -216,20 +216,20 @@ enum SecurityTokenType {
 }
 
 input SecurityTokenUpdateInput {
-  token: String
+  value: String
   type: SecurityTokenType
   expiredAt: DateTime
   user: UserUpdateOneRequiredWithoutSecurityTokensInput
 }
 
 input SecurityTokenUpdateManyDataInput {
-  token: String
+  value: String
   type: SecurityTokenType
   expiredAt: DateTime
 }
 
 input SecurityTokenUpdateManyMutationInput {
-  token: String
+  value: String
   type: SecurityTokenType
   expiredAt: DateTime
 }
@@ -252,7 +252,7 @@ input SecurityTokenUpdateManyWithWhereNestedInput {
 }
 
 input SecurityTokenUpdateWithoutUserDataInput {
-  token: String
+  value: String
   type: SecurityTokenType
   expiredAt: DateTime
 }
@@ -283,20 +283,20 @@ input SecurityTokenWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  token: String
-  token_not: String
-  token_in: [String!]
-  token_not_in: [String!]
-  token_lt: String
-  token_lte: String
-  token_gt: String
-  token_gte: String
-  token_contains: String
-  token_not_contains: String
-  token_starts_with: String
-  token_not_starts_with: String
-  token_ends_with: String
-  token_not_ends_with: String
+  value: String
+  value_not: String
+  value_in: [String!]
+  value_not_in: [String!]
+  value_lt: String
+  value_lte: String
+  value_gt: String
+  value_gte: String
+  value_contains: String
+  value_not_contains: String
+  value_starts_with: String
+  value_not_starts_with: String
+  value_ends_with: String
+  value_not_ends_with: String
   type: SecurityTokenType
   type_not: SecurityTokenType
   type_in: [SecurityTokenType!]
@@ -333,7 +333,7 @@ input SecurityTokenWhereInput {
 
 input SecurityTokenWhereUniqueInput {
   id: ID
-  token: String
+  value: String
 }
 
 type Subscription {

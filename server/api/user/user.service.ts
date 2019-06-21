@@ -1,6 +1,10 @@
 import { Service } from 'typedi';
 
-import { Prisma } from '../../generated/prisma-client';
+import {
+  Prisma,
+  UserUpdateInput,
+  UserWhereUniqueInput,
+} from '../../generated/prisma-client';
 
 @Service()
 export class UserService {
@@ -17,4 +21,13 @@ export class UserService {
     });
     return user ? user : null;
   }
+
+  async updateUser(options: UpdateUserOptions) {
+    return this.db.updateUser(options);
+  }
+}
+
+interface UpdateUserOptions {
+  data: UserUpdateInput;
+  where: UserWhereUniqueInput;
 }

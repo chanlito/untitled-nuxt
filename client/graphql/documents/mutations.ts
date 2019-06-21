@@ -2,6 +2,18 @@ import gql from 'graphql-tag';
 
 import { UserFields } from './fragments';
 
+export const RESET_PASSWORD = gql`
+  mutation ResetPassword($token: String!, $password: String!) {
+    resetPassword(input: { token: $token, password: $password })
+  }
+`;
+
+export const SEND_RESET_PASSWORD_LINK = gql`
+  mutation SendResetPasswordLink($email: String!) {
+    sendResetPasswordLink(input: { email: $email })
+  }
+`;
+
 export const SET_APP_BAR_TITLE = gql`
   mutation SetAppBarTitle($title: String!) {
     setAppBarTitle(title: $title)

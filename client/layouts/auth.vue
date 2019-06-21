@@ -43,9 +43,10 @@ export default class AuthLayout extends mixins(ThemeMixin) {
   +screen(xs-only)
     padding: 0
   +screen(xs-only)
-    background-color: transparent
     border: none
     box-shadow: none !important
+    &.theme--light,&.theme--dark
+      background-color: transparent
   &__layout
     padding-top: 48px
   &__avatar

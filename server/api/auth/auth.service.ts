@@ -3,10 +3,15 @@ import moment from 'moment';
 import { AuthChecker, ResolverData } from 'type-graphql';
 import { Service } from 'typedi';
 
-import { Prisma } from '../../generated/prisma-client';
+import {
+  Prisma,
+  SecurityTokenType,
+  SecurityTokenWhereInput,
+} from '../../generated/prisma-client';
 import { Context } from '../../lib/context';
 import { Mailer } from '../../lib/mailer';
 import { uid } from '../../lib/uid';
+import { User } from '../user';
 import { SignUpInput } from './auth.args';
 
 @Service()
@@ -31,6 +36,47 @@ export class AuthService implements AuthCheckerService {
     return hash(password, 10);
   }
 
+  async updatePassword(passwordHash: string, email: string): Promise<void> {
+    await this.db.updateUser({
+      data: { password: passwordHash },
+      where: { email },
+    });
+  }
+
+  async createSecurityToken({ email, type }: CreateSecurityToken) {
+    return this.db.createSecurityToken({
+      type,
+      value: uid(),
+      expiredAt: moment()
+        .add('5', 'minutes')
+        .toISOString(),
+      user: { connect: { email } },
+    });
+  }
+
+  async findSecurityToken({ value, email, type }: FindSecurityTokenOptions) {
+    const where: SecurityTokenWhereInput = {
+      type,
+      expiredAt_gte: moment().toISOString(),
+    };
+
+    if (value) {
+      where.value = value;
+    }
+
+    if (email) {
+      where.user = { email };
+    }
+
+    const [token] = await this.db.securityTokens({ where, last: 1 });
+
+    return token;
+  }
+
+  async findSecurityTokenOwner(value: string): Promise<User | null> {
+    return this.db.securityToken({ value }).user();
+  }
+
   async signUp(data: SignUpData) {
     return this.db.createUser({
       email: data.email,
@@ -40,7 +86,7 @@ export class AuthService implements AuthCheckerService {
       securityTokens: {
         create: [
           {
-            token: uid(),
+            value: uid(),
             type: 'EMAIL_CONFIRMATION',
             expiredAt: moment()
               .add('1', 'hour')
@@ -51,15 +97,37 @@ export class AuthService implements AuthCheckerService {
     });
   }
 
-  async sendSignUpMail({ to, metadata }: SendSignUpMailOptions) {
-    return this.mailer.sendMail({
-      to,
-      html: `
-        <p>Hi ${metadata.fullName},</p>
-        <p>Thank you for signing up!</p>
-      `,
-    });
+  async sendSignUpMail(email: string, metadata: SendSignUpMailMetadata) {
+    return this.mailer.sendMailTemplate(
+      email,
+      'Confirm Your Email',
+      'sign-up',
+      { ...metadata },
+    );
   }
+
+  async sendResetPasswordMail(
+    to: string,
+    metadata: SendResetPasswordMailMetadata,
+  ) {
+    return this.mailer.sendMailTemplate(
+      to,
+      'Reset Password',
+      'forgot-password',
+      { ...metadata },
+    );
+  }
+}
+
+export interface CreateSecurityToken {
+  email: string;
+  type: SecurityTokenType;
+}
+
+export interface FindSecurityTokenOptions {
+  value?: string;
+  email?: string;
+  type: SecurityTokenType;
 }
 
 interface AuthCheckerService {
@@ -68,7 +136,12 @@ interface AuthCheckerService {
 
 interface SignUpData extends SignUpInput {}
 
-interface SendSignUpMailOptions {
-  to: string;
-  metadata: { fullName: string };
+interface SendSignUpMailMetadata {
+  fullName: string;
+  href: string;
+}
+
+interface SendResetPasswordMailMetadata {
+  fullName: string;
+  href: string;
 }

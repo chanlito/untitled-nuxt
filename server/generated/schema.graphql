@@ -8,6 +8,8 @@ type AppBar {
 }
 
 type Mutation {
+  resetPassword(input: ResetPasswordInput!): Boolean
+  sendResetPasswordLink(input: SendResetPasswordLinkInput!): Boolean
   signUp(input: SignUpInput!): User!
   signIn(input: SignInInput!): User!
   signOut: Boolean
@@ -21,6 +23,11 @@ type Query {
   theme: Theme!
 }
 
+input ResetPasswordInput {
+  token: String!
+  password: String!
+}
+
 enum Role {
   ADMIN
   USER
@@ -28,7 +35,7 @@ enum Role {
 
 type SecurityToken {
   id: ID!
-  token: String!
+  value: String!
   type: SecurityTokenType!
   expiredAt: String!
   createdAt: String!
@@ -38,6 +45,10 @@ type SecurityToken {
 enum SecurityTokenType {
   EMAIL_CONFIRMATION
   RESET_PASSWORD
+}
+
+input SendResetPasswordLinkInput {
+  email: String!
 }
 
 input SignInInput {

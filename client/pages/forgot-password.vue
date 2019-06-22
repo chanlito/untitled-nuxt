@@ -26,7 +26,7 @@
 
     <v-layout justify-center>
       <nuxt-link
-        class="link mt-3 body-2 accent--text text-xs-center"
+        class="link pt-4 body-2 accent--text text-xs-center"
         :to="{ name: 'sign-in' }"
       >
         Sign in instead

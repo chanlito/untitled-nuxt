@@ -59,7 +59,7 @@
     <!-- Links -->
     <v-layout justify-center>
       <nuxt-link
-        class="sign-up__actions--link mt-3 body-2 accent--text text-xs-center"
+        class="sign-up__actions--link pt-4 body-2 accent--text text-xs-center"
         :to="{ name: 'sign-in' }"
       >
         Already have an account?

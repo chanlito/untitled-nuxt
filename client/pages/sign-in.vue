@@ -40,7 +40,7 @@
     </v-btn>
 
     <!-- Links -->
-    <v-layout class="pt-3" justify-space-between>
+    <v-layout class="pt-4" justify-space-between>
       <nuxt-link
         class="sign-in__actions--link body-2 accent--text"
         :to="{ name: 'forgot-password' }"

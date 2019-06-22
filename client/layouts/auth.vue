@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-content>
-      <v-container>
-        <v-layout class="auth__layout" justify-center>
-          <v-flex xs12 sm9 md7 lg5>
-            <v-card class="auth elevation-3">
+      <v-container fill-height>
+        <v-layout class="auth__container" justify-center>
+          <v-flex xs12 sm9 md7 lg5 xl3>
+            <v-card class="auth__card elevation-3">
               <v-layout class="auth__avatar" column align-center justify-center>
                 <v-icon
                   class="mb-1 cursor-pointer"
@@ -38,17 +38,20 @@ export default class AuthLayout extends mixins(ThemeMixin) {
 
 <style lang="sass" scoped>
 .auth
-  border-radius: 8px
-  padding: 48px
-  +screen(xs-only)
-    padding: 0
-  +screen(xs-only)
-    border: none
-    box-shadow: none !important
-    &.theme--light,&.theme--dark
-      background-color: transparent
-  &__layout
-    padding-top: 48px
+  &__container
+    padding-top: 200px
+    +screen(xs-only)
+      padding-top: 48px
+  &__card
+    border-radius: 8px
+    padding: 48px
+    +screen(xs-only)
+      padding: 0
+    +screen(xs-only)
+      border: none
+      box-shadow: none !important
+      &.theme--light,&.theme--dark
+        background-color: transparent
   &__avatar
     padding-bottom: 24px
 </style>

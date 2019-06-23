@@ -1,14 +1,16 @@
-import { IsEmail, MaxLength, MinLength, IsString } from 'class-validator';
+import { IsEmail, MaxLength, MinLength } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
+
+import { IsUniqueEmail } from './auth.decorators';
 
 @InputType()
 export class ResetPasswordInput {
   @Field()
-  @IsString()
   readonly token: string;
 
   @Field()
-  @IsString()
+  @MinLength(4)
+  @MaxLength(100)
   readonly password: string;
 }
 
@@ -33,6 +35,7 @@ export class SignInInput {
 export class SignUpInput {
   @Field()
   @IsEmail()
+  @IsUniqueEmail()
   @MaxLength(100)
   readonly email: string;
 

@@ -1,4 +1,4 @@
-import Container from 'typedi';
+import { Container } from 'typedi';
 
 import { prisma as db } from '../generated/prisma-client';
 

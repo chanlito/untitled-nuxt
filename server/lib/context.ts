@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Container from 'typedi';
+import { Container } from 'typedi';
 
 import { UserService } from '../api/user';
 import { User } from '../generated/prisma-client';

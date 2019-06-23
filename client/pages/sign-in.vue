@@ -29,7 +29,6 @@
 
     <!-- Submit -->
     <v-btn
-      :disabled="!!loading"
       :loading="!!loading"
       block
       class="sign-in__actions--submit"

@@ -9,7 +9,7 @@ export class UserResolver {
 
   @Query(returns => User)
   @Authorized()
-  async currentUser(@Ctx('req') req: Request) {
+  async profile(@Ctx('req') req: Request) {
     return this.userService.findUserByUk(req.session!.user.id);
   }
 }

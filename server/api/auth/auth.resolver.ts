@@ -2,6 +2,7 @@ import { Arg, Ctx, Mutation, Resolver } from 'type-graphql';
 
 import {
   AuthService,
+  FindSecurityTokenOptions,
   ResetPasswordInput,
   SendResetPasswordLinkInput,
   SignInInput,
@@ -14,7 +15,6 @@ import {
   UserNotFoundError,
 } from '../../lib/errors';
 import { User, UserService } from '../user';
-import { FindSecurityTokenOptions } from './auth.service';
 import { SecurityToken } from './security-token.type';
 
 const { APP_URL = '' } = process.env;

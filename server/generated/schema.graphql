@@ -18,7 +18,7 @@ type Mutation {
 }
 
 type Query {
-  currentUser: User!
+  profile: User!
   appBar: AppBar!
   theme: Theme!
 }

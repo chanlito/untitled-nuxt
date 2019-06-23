@@ -1,9 +1,9 @@
 import { ValidationError } from 'class-validator';
 import capitalize from 'lodash/capitalize';
-import { Component, mixins } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component
-export class ValidationMixin extends mixins() {
+export class ValidationMixin extends Vue {
   mapErrorToFields(err: any, fieldToCodes: FieldToCodesObject) {
     console.error(err.message);
     if (err && err.graphQLErrors.length) {
@@ -14,12 +14,15 @@ export class ValidationMixin extends mixins() {
         // TODO: need to improve this!
         if (code === 'ARGUMENT_VALIDATION_ERROR') {
           const { validationErrors } = i.extensions.exception;
-          validationErrors.forEach((j: ValidationError) => {
-            this.errors.add({
-              field: j.property,
-              msg: capitalize(Object.values(j.constraints)[0]),
+
+          if (Array.isArray(validationErrors)) {
+            validationErrors.forEach((j: ValidationError) => {
+              this.errors.add({
+                field: j.property,
+                msg: capitalize(Object.values(j.constraints)[0]),
+              });
             });
-          });
+          }
         } else {
           Object.keys(fieldToCodes).forEach(field => {
             if (fieldToCodes[field].includes(code)) {

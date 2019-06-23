@@ -46,7 +46,6 @@
 
     <!-- Submit -->
     <v-btn
-      :disabled="!!loading"
       :loading="!!loading"
       block
       class="sign-up__actions--submit"

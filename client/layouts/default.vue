@@ -1,8 +1,11 @@
 <template>
   <v-app>
+    <!-- Application Top Bar -->
     <v-app-bar app clipped-left color="primary" dark>
       <v-app-bar-nav-icon @click="toggleDrawer" />
       <v-toolbar-title class="title" v-text="appBar.title" />
+      <v-spacer />
+      <vv-app-bar-menu />
     </v-app-bar>
 
     <v-content>
@@ -30,42 +33,6 @@
           </v-list-item>
         </v-list>
         <v-spacer />
-        <div class="navigation-drawer__list--bottom">
-          <v-layout>
-            <v-tooltip top>
-              <template #activator="{ on }">
-                <v-btn
-                  style="margin-left: 12px"
-                  text
-                  icon
-                  v-on="on"
-                  @click="switchTheme"
-                >
-                  <v-icon
-                    :color="$vuetify.theme.dark ? 'white' : 'primary'"
-                    v-text="'mdi-theme-light-dark'"
-                  />
-                </v-btn>
-              </template>
-              <span>Switch Theme</span>
-            </v-tooltip>
-            <v-spacer />
-            <v-tooltip top>
-              <template #activator="{ on }">
-                <v-btn
-                  style="margin-right: 12px"
-                  text
-                  icon
-                  :to="{ name: 'sign-out' }"
-                  v-on="on"
-                >
-                  <v-icon v-text="'mdi-logout-variant'" />
-                </v-btn>
-              </template>
-              <span>Sign Out</span>
-            </v-tooltip>
-          </v-layout>
-        </div>
       </v-layout>
     </v-navigation-drawer>
   </v-app>
@@ -73,10 +40,10 @@
 
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
-import { AppBarMixin, ThemeMixin } from '@/mixins';
+import { AppBarMixin } from '@/mixins';
 
 @Component
-export default class DefaultLayout extends mixins(AppBarMixin, ThemeMixin) {
+export default class DefaultLayout extends mixins(AppBarMixin) {
   drawer: boolean | null = null;
   drawerMenu = [
     {

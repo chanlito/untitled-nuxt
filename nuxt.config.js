@@ -80,7 +80,17 @@ const config = {
      */
     plugins: [
       new ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb/),
-      new VuetifyLoaderPlugin(),
+      new VuetifyLoaderPlugin({
+        match(originalTag, { kebabTag, camelTag, path, component }) {
+          if (kebabTag.startsWith('vv-')) {
+            const componentName = kebabTag.substring(3);
+            return [
+              camelTag,
+              `import ${camelTag} from '@/components/${componentName}.vue'`,
+            ];
+          }
+        },
+      }),
     ],
     /**
      * The `transpile` property allows dependencies to be transpiled by Babel.

@@ -15,25 +15,7 @@
     </v-content>
 
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-layout column fill-height>
-        <v-list class="navigation-drawer__list--top" dense nav>
-          <v-list-item
-            v-for="({ label, icon, to }, i) in drawerMenu"
-            :key="i"
-            :to="to"
-            color="accent"
-            exact
-          >
-            <v-list-item-icon>
-              <v-icon v-text="icon" />
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="label" />
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-        <v-spacer />
-      </v-layout>
+      <vv-navigation-drawer-list />
     </v-navigation-drawer>
   </v-app>
 </template>
@@ -45,13 +27,6 @@ import { AppBarMixin } from '@/mixins';
 @Component
 export default class DefaultLayout extends mixins(AppBarMixin) {
   drawer: boolean | null = null;
-  drawerMenu = [
-    {
-      to: { name: 'index' },
-      label: 'Home',
-      icon: 'mdi-home-variant',
-    },
-  ];
 
   toggleDrawer() {
     this.drawer = !this.drawer;
@@ -63,13 +38,4 @@ export default class DefaultLayout extends mixins(AppBarMixin) {
 .v-toolbar__content
   +screen(md-and-up)
     padding: 0 24px
-</style>
-
-<style lang="sass" scoped>
-.navigation-drawer__list
-  &--top
-    +screen(lg-and-up)
-      margin-top: 8px
-  &--bottom
-    padding-bottom: 8px
 </style>

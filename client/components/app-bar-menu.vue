@@ -1,5 +1,5 @@
 <template>
-  <v-menu bottom :close-on-content-click="false">
+  <v-menu bottom>
     <template #activator="{ on }">
       <v-btn icon v-on="on">
         <v-avatar :size="32">
@@ -22,14 +22,17 @@
         </v-flex>
         <v-flex class="pl-3">
           <v-layout column fill-height style="max-width: 156px">
-            <div class="subtitle-1 text-truncate">
-              <b>{{ currentUser.fullName }}</b>
+            <div class="subtitle-1 text-truncate pb-2">
+              <nuxt-link
+                class="accent--text account-link"
+                :to="{ name: 'account' }"
+              >
+                {{ currentUser.fullName }}
+              </nuxt-link>
             </div>
             <div class="caption accent--text">
               {{ currentUser.email }}
             </div>
-            <v-spacer />
-            <v-btn color="accent" depressed small>Edit Profile</v-btn>
           </v-layout>
         </v-flex>
       </v-layout>
@@ -55,3 +58,9 @@ import { CurrentUserMixin, ThemeMixin } from '@/mixins';
 @Component
 export default class AppBarMenu extends mixins(CurrentUserMixin, ThemeMixin) {}
 </script>
+
+<style lang="sass" scoped>
+.account-link
+  font-weight: 700
+  text-decoration: none
+</style>

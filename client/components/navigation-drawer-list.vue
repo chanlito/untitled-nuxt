@@ -1,5 +1,5 @@
 <template>
-  <v-list dense nav>
+  <v-list shaped>
     <v-list-item
       v-for="({ label, icon, to }, i) in items"
       :key="i"

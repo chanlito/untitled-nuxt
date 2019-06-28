@@ -115,6 +115,7 @@ const config = {
       '@/assets/styles/_variables.sass',
       '@/assets/styles/_mixins.sass',
       '@/assets/styles/_utilities.sass',
+      '@/assets/styles/_transitions.sass',
     ],
   },
 };

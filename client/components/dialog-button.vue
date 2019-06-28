@@ -4,7 +4,6 @@
     scrollable
     :content-class="'modal'"
     :fullscreen="isXsOnly"
-    :persistent="loading"
     v-on="$listeners"
   >
     <template #activator="{ on }">
@@ -23,7 +22,7 @@
 
           <!-- X (Close) -->
           <v-flex order-sm2 shrink>
-            <v-btn icon :disabled="loading" @click="onCancel">
+            <v-btn icon :disabled="doneLoading" @click="onCancel">
               <v-icon v-text="'mdi-close'" />
             </v-btn>
           </v-flex>
@@ -36,11 +35,17 @@
         <v-spacer />
         <v-btn
           text
-          :disabled="loading"
+          :disabled="doneLoading"
           @click="onCancel"
           v-text="cancelLabel"
         />
-        <v-btn color="accent" text :loading="loading" @click="onDone">
+        <v-btn
+          color="accent"
+          text
+          :disabled="doneDisabled"
+          :loading="doneLoading"
+          @click="onDone"
+        >
           {{ doneLabel }}
         </v-btn>
       </v-card-actions>
@@ -68,14 +73,17 @@ export default class DialogButton extends Vue {
   doneLabel: string;
 
   @Prop({ type: Boolean, default: false })
-  loading: boolean;
+  doneLoading: boolean;
+
+  @Prop({ type: Boolean, default: false })
+  doneDisabled: boolean;
 
   get isXsOnly(): boolean {
     return this.$vuetify.breakpoint.xsOnly;
   }
 
   onCancel() {
-    this.$emit('input', false);
+    this.$emit('cancel');
   }
 
   onDone() {

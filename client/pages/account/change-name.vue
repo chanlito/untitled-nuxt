@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vv-navigation-toolbar :back-to="{ name: 'account' }" :title="title" />
+    <vv-navigation-toolbar :back-to="{ name: 'account' }" :title="'Name'" />
     <p class="body-2">
       Your name will be used throughout the application.
     </p>
@@ -14,14 +14,22 @@
           v-model="dialog"
           title="Change Name"
           icon="mdi-circle-edit-outline"
-          :loading="loading"
+          persistent
+          :done-disabled="isFormDirty && !isFormValid"
+          :done-loading="loading"
+          @cancel="resetName"
           @done="updateName"
         >
           <v-text-field
-            v-model="currentUser.fullName"
+            v-model="fullName"
+            v-validate="'required'"
+            outlined
             color="accent"
             label="Full Name"
-            outlined
+            data-vv-name="fullName"
+            data-vv-as="full name"
+            :error-messages="errors.collect('fullName')"
+            @keyup.enter="updateName"
           />
         </vv-dialog-button>
       </v-layout>
@@ -31,18 +39,43 @@
 
 <script lang="ts">
 import { Component, mixins } from 'nuxt-property-decorator';
-import { CurrentUserMixin } from '@/mixins';
+import { UPDATE_FULLNAME } from '@/graphql/documents';
+import { CurrentUserMixin, ValidationMixin } from '@/mixins';
 
-@Component
-export default class EditName extends mixins(CurrentUserMixin) {
-  title = 'Name';
-
+@Component({
+  middleware: ['auth'],
+})
+export default class EditName extends mixins(
+  CurrentUserMixin,
+  ValidationMixin,
+) {
   dialog = false;
   loading = false;
+  fullName = '';
 
-  updateName() {
-    console.log('Update name...');
-    // TODO: API
+  mounted() {
+    this.fullName = this.currentUser.fullName;
+  }
+
+  async updateName() {
+    try {
+      this.loading = true;
+      await this.$apollo.mutate({
+        mutation: UPDATE_FULLNAME,
+        variables: { fullName: this.fullName },
+      });
+      this.dialog = false;
+    } catch (err) {
+      console.error(err);
+      this.mapErrorToFields(err);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  resetName() {
+    this.dialog = false;
+    this.fullName = this.currentUser.fullName;
   }
 }
 </script>

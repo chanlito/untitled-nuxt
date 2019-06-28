@@ -2,9 +2,8 @@
   <div class="account-container">
     <header>
       <v-layout class="mb-2" justify-center>
-        <h1 class="display-1">Personal Info</h1>
+        <h1 class="headline">Personal Info</h1>
       </v-layout>
-
       <v-layout justify-center>
         <h2 class="subtitle-1">
           Basic info, like your name and photo, that you use on Untitled.
@@ -13,7 +12,7 @@
     </header>
 
     <section class="my-4">
-      <v-card class="profile-card" flat>
+      <v-card outlined flat>
         <v-card-title>
           <v-flex xs12 class="title">Profile</v-flex>
           <div class="body-2">
@@ -44,7 +43,7 @@
           <v-divider inset />
 
           <!-- Full Name -->
-          <v-list-item to="#">
+          <v-list-item nuxt :to="{ name: 'account-change-name' }">
             <v-list-item-avatar>
               <v-icon v-text="'mdi-account-circle-outline'" />
             </v-list-item-avatar>
@@ -95,7 +94,7 @@
           <v-divider inset />
 
           <!-- Password -->
-          <v-list-item to="#">
+          <v-list-item :to="{ name: 'account-change-password' }">
             <v-list-item-avatar>
               <v-icon v-text="'mdi-lock-outline'" />
             </v-list-item-avatar>
@@ -116,7 +115,7 @@
     </section>
 
     <section class="my-4">
-      <v-card class="profile-card" flat>
+      <v-card outlined flat>
         <v-card-title>
           <v-flex xs12 class="title">Contact Info</v-flex>
         </v-card-title>
@@ -138,15 +137,27 @@
 
           <v-divider inset />
 
-          <!-- Phone -->
-          <v-list-item disabled>
+          <!-- Email Confirmation -->
+          <v-list-item>
             <v-list-item-avatar>
-              <v-icon v-text="'mdi-cellphone'" />
+              <v-icon
+                v-text="
+                  currentUser.emailConfirmed
+                    ? 'mdi-email-check-outline'
+                    : 'mdi-email-alert'
+                "
+              />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
-                Not Set
+                {{ currentUser.emailConfirmed ? 'Confirmed' : 'Unconfirmed' }}
               </v-list-item-title>
+              <v-list-item-subtitle
+                v-if="!currentUser.emailConfirmed"
+                class="caption"
+              >
+                Action Required
+              </v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <v-icon v-text="'mdi-chevron-right'" />
@@ -171,7 +182,9 @@
 import { Component, mixins } from 'nuxt-property-decorator';
 import { CurrentUserMixin } from '@/mixins';
 
-@Component
+@Component({
+  middleware: ['auth'],
+})
 export default class Account extends mixins(CurrentUserMixin) {}
 </script>
 

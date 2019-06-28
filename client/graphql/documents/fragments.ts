@@ -16,6 +16,7 @@ export const UserFields = gql`
   fragment UserFields on User {
     id
     email
+    emailConfirmed
     fullName
   }
 `;

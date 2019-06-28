@@ -1,6 +1,9 @@
 <template>
   <div>
     <vv-navigation-toolbar :back-to="{ name: 'account' }" :title="title" />
+    <p class="body-2">
+      Your name will be used throughout the application.
+    </p>
     <v-card flat outlined>
       <v-layout align-center class="pa-3">
         <span class="body-1">

@@ -4,9 +4,8 @@
     <p class="body-2">
       Choose a strong password and don't reuse it for other accounts.
     </p>
-
     <v-card flat outlined>
-      <v-card-text class="pt-5">
+      <v-card-text class="pt-4 pb-0">
         <v-text-field outlined type="password" label="Current Password" />
         <v-text-field
           outlined

@@ -39,7 +39,7 @@ export default class AuthLayout extends mixins(ThemeMixin) {
 <style lang="sass" scoped>
 .auth
   &__container
-    padding-top: 200px
+    padding-top: 100px
     +screen(xs-only)
       padding-top: 48px
   &__card

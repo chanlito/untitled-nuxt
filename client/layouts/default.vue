@@ -11,7 +11,7 @@
     <v-content>
       <v-container fluid>
         <v-layout>
-          <v-flex xs12 sm12 md12 lg8 offset-lg2 xl8 offset-xl2>
+          <v-flex xs12 sm12 md8 lg8 xl8 offset-md2 offset-lg2 offset-xl2>
             <nuxt />
           </v-flex>
         </v-layout>

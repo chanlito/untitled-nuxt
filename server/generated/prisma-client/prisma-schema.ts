@@ -17,6 +17,11 @@ export const typeDefs = /* GraphQL */ `
 
   scalar DateTime
 
+  enum Gender {
+    MALE
+    FEMALE
+  }
+
   scalar Long
 
   type Mutation {
@@ -398,8 +403,11 @@ export const typeDefs = /* GraphQL */ `
     email: String!
     emailConfirmed: Boolean!
     fullName: String!
-    role: Role!
+    gender: Gender
+    dateOfBirth: DateTime
     password: String!
+    passwordLastChanged: DateTime
+    role: Role!
     createdAt: DateTime!
     updatedAt: DateTime!
     securityTokens(
@@ -424,8 +432,11 @@ export const typeDefs = /* GraphQL */ `
     email: String!
     emailConfirmed: Boolean
     fullName: String!
-    role: Role!
+    gender: Gender
+    dateOfBirth: DateTime
     password: String!
+    passwordLastChanged: DateTime
+    role: Role!
     securityTokens: SecurityTokenCreateManyWithoutUserInput
   }
 
@@ -439,8 +450,11 @@ export const typeDefs = /* GraphQL */ `
     email: String!
     emailConfirmed: Boolean
     fullName: String!
-    role: Role!
+    gender: Gender
+    dateOfBirth: DateTime
     password: String!
+    passwordLastChanged: DateTime
+    role: Role!
   }
 
   type UserEdge {
@@ -457,10 +471,16 @@ export const typeDefs = /* GraphQL */ `
     emailConfirmed_DESC
     fullName_ASC
     fullName_DESC
-    role_ASC
-    role_DESC
+    gender_ASC
+    gender_DESC
+    dateOfBirth_ASC
+    dateOfBirth_DESC
     password_ASC
     password_DESC
+    passwordLastChanged_ASC
+    passwordLastChanged_DESC
+    role_ASC
+    role_DESC
     createdAt_ASC
     createdAt_DESC
     updatedAt_ASC
@@ -472,8 +492,11 @@ export const typeDefs = /* GraphQL */ `
     email: String!
     emailConfirmed: Boolean!
     fullName: String!
-    role: Role!
+    gender: Gender
+    dateOfBirth: DateTime
     password: String!
+    passwordLastChanged: DateTime
+    role: Role!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
@@ -500,8 +523,11 @@ export const typeDefs = /* GraphQL */ `
     email: String
     emailConfirmed: Boolean
     fullName: String
-    role: Role
+    gender: Gender
+    dateOfBirth: DateTime
     password: String
+    passwordLastChanged: DateTime
+    role: Role
     securityTokens: SecurityTokenUpdateManyWithoutUserInput
   }
 
@@ -509,8 +535,11 @@ export const typeDefs = /* GraphQL */ `
     email: String
     emailConfirmed: Boolean
     fullName: String
-    role: Role
+    gender: Gender
+    dateOfBirth: DateTime
     password: String
+    passwordLastChanged: DateTime
+    role: Role
   }
 
   input UserUpdateOneRequiredWithoutSecurityTokensInput {
@@ -524,8 +553,11 @@ export const typeDefs = /* GraphQL */ `
     email: String
     emailConfirmed: Boolean
     fullName: String
-    role: Role
+    gender: Gender
+    dateOfBirth: DateTime
     password: String
+    passwordLastChanged: DateTime
+    role: Role
   }
 
   input UserUpsertWithoutSecurityTokensInput {
@@ -578,10 +610,18 @@ export const typeDefs = /* GraphQL */ `
     fullName_not_starts_with: String
     fullName_ends_with: String
     fullName_not_ends_with: String
-    role: Role
-    role_not: Role
-    role_in: [Role!]
-    role_not_in: [Role!]
+    gender: Gender
+    gender_not: Gender
+    gender_in: [Gender!]
+    gender_not_in: [Gender!]
+    dateOfBirth: DateTime
+    dateOfBirth_not: DateTime
+    dateOfBirth_in: [DateTime!]
+    dateOfBirth_not_in: [DateTime!]
+    dateOfBirth_lt: DateTime
+    dateOfBirth_lte: DateTime
+    dateOfBirth_gt: DateTime
+    dateOfBirth_gte: DateTime
     password: String
     password_not: String
     password_in: [String!]
@@ -596,6 +636,18 @@ export const typeDefs = /* GraphQL */ `
     password_not_starts_with: String
     password_ends_with: String
     password_not_ends_with: String
+    passwordLastChanged: DateTime
+    passwordLastChanged_not: DateTime
+    passwordLastChanged_in: [DateTime!]
+    passwordLastChanged_not_in: [DateTime!]
+    passwordLastChanged_lt: DateTime
+    passwordLastChanged_lte: DateTime
+    passwordLastChanged_gt: DateTime
+    passwordLastChanged_gte: DateTime
+    role: Role
+    role_not: Role
+    role_in: [Role!]
+    role_not_in: [Role!]
     createdAt: DateTime
     createdAt_not: DateTime
     createdAt_in: [DateTime!]

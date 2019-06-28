@@ -3,8 +3,11 @@ type User {
   email: String! @unique
   emailConfirmed: Boolean! @default(value: false)
   fullName: String!
-  role: Role!
+  gender: Gender
+  dateOfBirth: DateTime
   password: String!
+  passwordLastChanged: DateTime
+  role: Role!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   securityTokens: [SecurityToken!]! @relation(name: "UserSecurityTokens", onDelete: CASCADE)
@@ -18,6 +21,11 @@ type SecurityToken {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   user: User! @relation(link: INLINE, name: "UserSecurityTokens")
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
 
 enum Role {

@@ -146,6 +146,8 @@ export interface ClientConstructor<T> {
  * Types
  */
 
+export type Gender = 'MALE' | 'FEMALE';
+
 export type Role = 'ADMIN' | 'USER';
 
 export type SecurityTokenOrderByInput =
@@ -173,10 +175,16 @@ export type UserOrderByInput =
   | 'emailConfirmed_DESC'
   | 'fullName_ASC'
   | 'fullName_DESC'
-  | 'role_ASC'
-  | 'role_DESC'
+  | 'gender_ASC'
+  | 'gender_DESC'
+  | 'dateOfBirth_ASC'
+  | 'dateOfBirth_DESC'
   | 'password_ASC'
   | 'password_DESC'
+  | 'passwordLastChanged_ASC'
+  | 'passwordLastChanged_DESC'
+  | 'role_ASC'
+  | 'role_DESC'
   | 'createdAt_ASC'
   | 'createdAt_DESC'
   | 'updatedAt_ASC'
@@ -184,11 +192,16 @@ export type UserOrderByInput =
 
 export type MutationType = 'CREATED' | 'UPDATED' | 'DELETED';
 
-export interface SecurityTokenUpdateInput {
-  value?: Maybe<String>;
-  type?: Maybe<SecurityTokenType>;
-  expiredAt?: Maybe<DateTimeInput>;
-  user?: Maybe<UserUpdateOneRequiredWithoutSecurityTokensInput>;
+export interface UserCreateWithoutSecurityTokensInput {
+  id?: Maybe<ID_Input>;
+  email: String;
+  emailConfirmed?: Maybe<Boolean>;
+  fullName: String;
+  gender?: Maybe<Gender>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  password: String;
+  passwordLastChanged?: Maybe<DateTimeInput>;
+  role: Role;
 }
 
 export type SecurityTokenWhereUniqueInput = AtLeastOne<{
@@ -206,8 +219,11 @@ export interface UserCreateInput {
   email: String;
   emailConfirmed?: Maybe<Boolean>;
   fullName: String;
-  role: Role;
+  gender?: Maybe<Gender>;
+  dateOfBirth?: Maybe<DateTimeInput>;
   password: String;
+  passwordLastChanged?: Maybe<DateTimeInput>;
+  role: Role;
   securityTokens?: Maybe<SecurityTokenCreateManyWithoutUserInput>;
 }
 
@@ -292,10 +308,18 @@ export interface UserWhereInput {
   fullName_not_starts_with?: Maybe<String>;
   fullName_ends_with?: Maybe<String>;
   fullName_not_ends_with?: Maybe<String>;
-  role?: Maybe<Role>;
-  role_not?: Maybe<Role>;
-  role_in?: Maybe<Role[] | Role>;
-  role_not_in?: Maybe<Role[] | Role>;
+  gender?: Maybe<Gender>;
+  gender_not?: Maybe<Gender>;
+  gender_in?: Maybe<Gender[] | Gender>;
+  gender_not_in?: Maybe<Gender[] | Gender>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  dateOfBirth_not?: Maybe<DateTimeInput>;
+  dateOfBirth_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dateOfBirth_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dateOfBirth_lt?: Maybe<DateTimeInput>;
+  dateOfBirth_lte?: Maybe<DateTimeInput>;
+  dateOfBirth_gt?: Maybe<DateTimeInput>;
+  dateOfBirth_gte?: Maybe<DateTimeInput>;
   password?: Maybe<String>;
   password_not?: Maybe<String>;
   password_in?: Maybe<String[] | String>;
@@ -310,6 +334,18 @@ export interface UserWhereInput {
   password_not_starts_with?: Maybe<String>;
   password_ends_with?: Maybe<String>;
   password_not_ends_with?: Maybe<String>;
+  passwordLastChanged?: Maybe<DateTimeInput>;
+  passwordLastChanged_not?: Maybe<DateTimeInput>;
+  passwordLastChanged_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  passwordLastChanged_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  passwordLastChanged_lt?: Maybe<DateTimeInput>;
+  passwordLastChanged_lte?: Maybe<DateTimeInput>;
+  passwordLastChanged_gt?: Maybe<DateTimeInput>;
+  passwordLastChanged_gte?: Maybe<DateTimeInput>;
+  role?: Maybe<Role>;
+  role_not?: Maybe<Role>;
+  role_in?: Maybe<Role[] | Role>;
+  role_not_in?: Maybe<Role[] | Role>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -432,13 +468,16 @@ export interface SecurityTokenScalarWhereInput {
   NOT?: Maybe<SecurityTokenScalarWhereInput[] | SecurityTokenScalarWhereInput>;
 }
 
-export interface UserCreateWithoutSecurityTokensInput {
-  id?: Maybe<ID_Input>;
-  email: String;
+export interface UserUpdateInput {
+  email?: Maybe<String>;
   emailConfirmed?: Maybe<Boolean>;
-  fullName: String;
-  role: Role;
-  password: String;
+  fullName?: Maybe<String>;
+  gender?: Maybe<Gender>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  password?: Maybe<String>;
+  passwordLastChanged?: Maybe<DateTimeInput>;
+  role?: Maybe<Role>;
+  securityTokens?: Maybe<SecurityTokenUpdateManyWithoutUserInput>;
 }
 
 export interface SecurityTokenUpsertWithWhereUniqueWithoutUserInput {
@@ -447,13 +486,11 @@ export interface SecurityTokenUpsertWithWhereUniqueWithoutUserInput {
   create: SecurityTokenCreateWithoutUserInput;
 }
 
-export interface UserUpdateInput {
-  email?: Maybe<String>;
-  emailConfirmed?: Maybe<Boolean>;
-  fullName?: Maybe<String>;
-  role?: Maybe<Role>;
-  password?: Maybe<String>;
-  securityTokens?: Maybe<SecurityTokenUpdateManyWithoutUserInput>;
+export interface SecurityTokenUpdateInput {
+  value?: Maybe<String>;
+  type?: Maybe<SecurityTokenType>;
+  expiredAt?: Maybe<DateTimeInput>;
+  user?: Maybe<UserUpdateOneRequiredWithoutSecurityTokensInput>;
 }
 
 export interface SecurityTokenWhereInput {
@@ -530,8 +567,11 @@ export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
   emailConfirmed?: Maybe<Boolean>;
   fullName?: Maybe<String>;
-  role?: Maybe<Role>;
+  gender?: Maybe<Gender>;
+  dateOfBirth?: Maybe<DateTimeInput>;
   password?: Maybe<String>;
+  passwordLastChanged?: Maybe<DateTimeInput>;
+  role?: Maybe<Role>;
 }
 
 export interface SecurityTokenCreateManyWithoutUserInput {
@@ -560,8 +600,11 @@ export interface UserUpdateWithoutSecurityTokensDataInput {
   email?: Maybe<String>;
   emailConfirmed?: Maybe<Boolean>;
   fullName?: Maybe<String>;
-  role?: Maybe<Role>;
+  gender?: Maybe<Gender>;
+  dateOfBirth?: Maybe<DateTimeInput>;
   password?: Maybe<String>;
+  passwordLastChanged?: Maybe<DateTimeInput>;
+  role?: Maybe<Role>;
 }
 
 export interface SecurityTokenUpdateManyWithWhereNestedInput {
@@ -600,8 +643,11 @@ export interface UserPreviousValues {
   email: String;
   emailConfirmed: Boolean;
   fullName: String;
-  role: Role;
+  gender?: Gender;
+  dateOfBirth?: DateTimeOutput;
   password: String;
+  passwordLastChanged?: DateTimeOutput;
+  role: Role;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -613,8 +659,11 @@ export interface UserPreviousValuesPromise
   email: () => Promise<String>;
   emailConfirmed: () => Promise<Boolean>;
   fullName: () => Promise<String>;
-  role: () => Promise<Role>;
+  gender: () => Promise<Gender>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
   password: () => Promise<String>;
+  passwordLastChanged: () => Promise<DateTimeOutput>;
+  role: () => Promise<Role>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -626,8 +675,11 @@ export interface UserPreviousValuesSubscription
   email: () => Promise<AsyncIterator<String>>;
   emailConfirmed: () => Promise<AsyncIterator<Boolean>>;
   fullName: () => Promise<AsyncIterator<String>>;
-  role: () => Promise<AsyncIterator<Role>>;
+  gender: () => Promise<AsyncIterator<Gender>>;
+  dateOfBirth: () => Promise<AsyncIterator<DateTimeOutput>>;
   password: () => Promise<AsyncIterator<String>>;
+  passwordLastChanged: () => Promise<AsyncIterator<DateTimeOutput>>;
+  role: () => Promise<AsyncIterator<Role>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -874,8 +926,11 @@ export interface User {
   email: String;
   emailConfirmed: Boolean;
   fullName: String;
-  role: Role;
+  gender?: Gender;
+  dateOfBirth?: DateTimeOutput;
   password: String;
+  passwordLastChanged?: DateTimeOutput;
+  role: Role;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -885,8 +940,11 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   email: () => Promise<String>;
   emailConfirmed: () => Promise<Boolean>;
   fullName: () => Promise<String>;
-  role: () => Promise<Role>;
+  gender: () => Promise<Gender>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
   password: () => Promise<String>;
+  passwordLastChanged: () => Promise<DateTimeOutput>;
+  role: () => Promise<Role>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   securityTokens: <T = FragmentableArray<SecurityToken>>(args?: {
@@ -907,8 +965,11 @@ export interface UserSubscription
   email: () => Promise<AsyncIterator<String>>;
   emailConfirmed: () => Promise<AsyncIterator<Boolean>>;
   fullName: () => Promise<AsyncIterator<String>>;
-  role: () => Promise<AsyncIterator<Role>>;
+  gender: () => Promise<AsyncIterator<Gender>>;
+  dateOfBirth: () => Promise<AsyncIterator<DateTimeOutput>>;
   password: () => Promise<AsyncIterator<String>>;
+  passwordLastChanged: () => Promise<AsyncIterator<DateTimeOutput>>;
+  role: () => Promise<AsyncIterator<Role>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   securityTokens: <
@@ -931,8 +992,11 @@ export interface UserNullablePromise
   email: () => Promise<String>;
   emailConfirmed: () => Promise<Boolean>;
   fullName: () => Promise<String>;
-  role: () => Promise<Role>;
+  gender: () => Promise<Gender>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
   password: () => Promise<String>;
+  passwordLastChanged: () => Promise<DateTimeOutput>;
+  role: () => Promise<Role>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
   securityTokens: <T = FragmentableArray<SecurityToken>>(args?: {
@@ -1031,6 +1095,10 @@ export const models: Model[] = [
     embedded: false,
   },
   {
+    name: 'Gender',
+    embedded: false,
+  },
+  {
     name: 'Role',
     embedded: false,
   },
@@ -1048,6 +1116,6 @@ export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
   models,
   endpoint: `${process.env['PRISMA_ENDPOINT']}`,
-  secret: `${process.env['PRISMA_SECRET']}`,
+  secret: `${process.env['PRISMA_MANAGEMENT_API_SECRET']}`,
 });
 export const prisma = new Prisma();

@@ -1,6 +1,6 @@
 endpoint: ${env:PRISMA_ENDPOINT}
 
-secret: ${env:PRISMA_SECRET}
+secret: ${env:PRISMA_MANAGEMENT_API_SECRET}
 
 datamodel: datamodel.prisma
 

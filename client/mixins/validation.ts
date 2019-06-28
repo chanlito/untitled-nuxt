@@ -4,7 +4,17 @@ import { Component, Vue } from 'nuxt-property-decorator';
 
 @Component
 export class ValidationMixin extends Vue {
-  mapErrorToFields(err: any, fieldToCodes: FieldToCodesObject) {
+  get isFormDirty(): boolean {
+    const fields: any = this.fields;
+    return Object.keys(fields).some(key => fields[key].dirty);
+  }
+
+  get isFormValid(): boolean {
+    const fields: any = this.fields;
+    return !Object.keys(fields).some(key => !!fields[key].invalid);
+  }
+
+  mapErrorToFields(err: any, fieldToCodes: FieldToCodesObject = {}) {
     console.error(err.message);
     if (err && err.graphQLErrors.length) {
       err.graphQLErrors.forEach((i: any) => {
@@ -17,10 +27,8 @@ export class ValidationMixin extends Vue {
 
           if (Array.isArray(validationErrors)) {
             validationErrors.forEach((j: ValidationError) => {
-              this.errors.add({
-                field: j.property,
-                msg: capitalize(Object.values(j.constraints)[0]),
-              });
+              const msg = capitalize(Object.values(j.constraints)[0]);
+              this.errors.add({ field: j.property, msg });
             });
           }
         } else {

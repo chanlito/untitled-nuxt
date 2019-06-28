@@ -1,6 +1,10 @@
 import { Authorized, Field, ID, ObjectType } from 'type-graphql';
 
-import { Role as IRole, User as IUser } from '../../generated/prisma-client';
+import {
+  Gender as IGender,
+  Role as IRole,
+  User as IUser,
+} from '../../generated/prisma-client';
 
 @ObjectType()
 export class User implements IUser {
@@ -17,8 +21,17 @@ export class User implements IUser {
   @Authorized('ADMIN')
   readonly password: string;
 
+  @Field({ nullable: true })
+  passwordLastChanged?: string;
+
   @Field()
   readonly fullName: string;
+
+  @Field({ nullable: true })
+  dateOfBirth?: string;
+
+  @Field(type => Gender, { nullable: true })
+  readonly gender?: IGender;
 
   @Field(type => Role)
   readonly role: IRole;
@@ -28,6 +41,11 @@ export class User implements IUser {
 
   @Field()
   readonly updatedAt: string;
+}
+
+export enum Gender {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
 }
 
 export enum Role {

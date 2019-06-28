@@ -7,7 +7,13 @@ type AppBar {
   title: String!
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 type Mutation {
+  updateFullName(input: UpdateFullNameInput!): User!
   resetPassword(input: ResetPasswordInput!): Boolean
   sendResetPasswordLink(input: SendResetPasswordLinkInput!): Boolean
   signUp(input: SignUpInput!): User!
@@ -71,12 +77,19 @@ enum ThemeVariant {
   LIGHT
 }
 
+input UpdateFullNameInput {
+  fullName: String!
+}
+
 type User {
   id: ID!
   email: String!
   emailConfirmed: Boolean!
   password: String!
+  passwordLastChanged: String
   fullName: String!
+  dateOfBirth: String
+  gender: Gender
   role: Role!
   createdAt: String!
   updatedAt: String!

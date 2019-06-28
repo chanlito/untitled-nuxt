@@ -18,5 +18,10 @@ export const UserFields = gql`
     email
     emailConfirmed
     fullName
+    dateOfBirth
+    gender
+    passwordLastChanged
+    role
+    createdAt
   }
 `;

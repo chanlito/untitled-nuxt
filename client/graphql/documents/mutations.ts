@@ -2,6 +2,15 @@ import gql from 'graphql-tag';
 
 import { UserFields } from './fragments';
 
+export const UPDATE_FULLNAME = gql`
+  mutation UpdateFullName($fullName: String!) {
+    updateFullName(input: { fullName: $fullName }) {
+      ...UserFields
+    }
+  }
+  ${UserFields}
+`;
+
 export const RESET_PASSWORD = gql`
   mutation ResetPassword($token: String!, $password: String!) {
     resetPassword(input: { token: $token, password: $password })

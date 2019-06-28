@@ -1,7 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { Context } from './context';
 export type Maybe<T> = T | null;
-export type MaybePromise<T> = Promise<T> | T;
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -17,8 +16,11 @@ export type AppBar = {
   title: Scalars['String'];
 };
 
+export type Gender = 'MALE' | 'FEMALE';
+
 export type Mutation = {
   __typename?: 'Mutation';
+  updateFullName: User;
   resetPassword?: Maybe<Scalars['Boolean']>;
   sendResetPasswordLink?: Maybe<Scalars['Boolean']>;
   signUp: User;
@@ -26,6 +28,10 @@ export type Mutation = {
   signOut?: Maybe<Scalars['Boolean']>;
   setAppBarTitle: Scalars['String'];
   switchTheme: ThemeVariant;
+};
+
+export type MutationUpdateFullNameArgs = {
+  input: UpdateFullNameInput;
 };
 
 export type MutationResetPasswordArgs = {
@@ -96,17 +102,26 @@ export type Theme = {
 
 export type ThemeVariant = 'DARK' | 'LIGHT';
 
+export type UpdateFullNameInput = {
+  fullName: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
   email: Scalars['String'];
   emailConfirmed: Scalars['Boolean'];
   password: Scalars['String'];
+  passwordLastChanged?: Maybe<Scalars['String']>;
   fullName: Scalars['String'];
+  dateOfBirth?: Maybe<Scalars['String']>;
+  gender?: Maybe<Gender>;
   role: Role;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
+
+export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -177,35 +192,65 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: MaybePromise<{}>;
-  User: MaybePromise<User>;
-  ID: MaybePromise<Scalars['ID']>;
-  String: MaybePromise<Scalars['String']>;
-  Boolean: MaybePromise<Scalars['Boolean']>;
+  Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<User>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Gender: Gender;
   Role: Role;
-  AppBar: MaybePromise<AppBar>;
-  Theme: MaybePromise<Theme>;
+  AppBar: ResolverTypeWrapper<AppBar>;
+  Theme: ResolverTypeWrapper<Theme>;
   ThemeVariant: ThemeVariant;
-  Mutation: MaybePromise<{}>;
+  Mutation: ResolverTypeWrapper<{}>;
+  UpdateFullNameInput: UpdateFullNameInput;
   ResetPasswordInput: ResetPasswordInput;
   SendResetPasswordLinkInput: SendResetPasswordLinkInput;
   SignUpInput: SignUpInput;
   SignInInput: SignInInput;
-  SecurityToken: MaybePromise<SecurityToken>;
+  SecurityToken: ResolverTypeWrapper<SecurityToken>;
+  SecurityTokenType: SecurityTokenType;
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Query: {};
+  User: User;
+  ID: Scalars['ID'];
+  String: Scalars['String'];
+  Boolean: Scalars['Boolean'];
+  Gender: Gender;
+  Role: Role;
+  AppBar: AppBar;
+  Theme: Theme;
+  ThemeVariant: ThemeVariant;
+  Mutation: {};
+  UpdateFullNameInput: UpdateFullNameInput;
+  ResetPasswordInput: ResetPasswordInput;
+  SendResetPasswordLinkInput: SendResetPasswordLinkInput;
+  SignUpInput: SignUpInput;
+  SignInInput: SignInInput;
+  SecurityToken: SecurityToken;
   SecurityTokenType: SecurityTokenType;
 };
 
 export type AppBarResolvers<
   ContextType = Context,
-  ParentType = ResolversTypes['AppBar']
+  ParentType = ResolversParentTypes['AppBar']
 > = {
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 
 export type MutationResolvers<
   ContextType = Context,
-  ParentType = ResolversTypes['Mutation']
+  ParentType = ResolversParentTypes['Mutation']
 > = {
+  updateFullName?: Resolver<
+    ResolversTypes['User'],
+    ParentType,
+    ContextType,
+    MutationUpdateFullNameArgs
+  >;
   resetPassword?: Resolver<
     Maybe<ResolversTypes['Boolean']>,
     ParentType,
@@ -246,7 +291,7 @@ export type MutationResolvers<
 
 export type QueryResolvers<
   ContextType = Context,
-  ParentType = ResolversTypes['Query']
+  ParentType = ResolversParentTypes['Query']
 > = {
   currentUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   appBar?: Resolver<ResolversTypes['AppBar'], ParentType, ContextType>;
@@ -255,7 +300,7 @@ export type QueryResolvers<
 
 export type SecurityTokenResolvers<
   ContextType = Context,
-  ParentType = ResolversTypes['SecurityToken']
+  ParentType = ResolversParentTypes['SecurityToken']
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -267,20 +312,31 @@ export type SecurityTokenResolvers<
 
 export type ThemeResolvers<
   ContextType = Context,
-  ParentType = ResolversTypes['Theme']
+  ParentType = ResolversParentTypes['Theme']
 > = {
   variant?: Resolver<ResolversTypes['ThemeVariant'], ParentType, ContextType>;
 };
 
 export type UserResolvers<
   ContextType = Context,
-  ParentType = ResolversTypes['User']
+  ParentType = ResolversParentTypes['User']
 > = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   emailConfirmed?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  passwordLastChanged?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
   fullName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  dateOfBirth?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  gender?: Resolver<Maybe<ResolversTypes['Gender']>, ParentType, ContextType>;
   role?: Resolver<ResolversTypes['Role'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

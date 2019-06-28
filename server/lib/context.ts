@@ -23,7 +23,7 @@ export async function context({ connection, req, res }: NetworkContext) {
 
   // HTTP
   const currentUser =
-    req.session && req.session.user
+    req.session && req.session.user && req.session.user.email
       ? await Container.get(UserService).findUserByEmail(req.session.user.email)
       : null;
   const context: Context = {

@@ -1,7 +1,7 @@
 import { IsEmail, MaxLength, MinLength } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
 
-import { IsUniqueEmail } from './auth.decorators';
+import { IsUniqueEmail } from '../../lib/custom-validation';
 
 @InputType()
 export class ResetPasswordInput {

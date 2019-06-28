@@ -102,8 +102,11 @@
               <v-list-item-title>
                 **********
               </v-list-item-title>
-              <v-list-item-subtitle class="caption">
-                Last changed Dec, 31 2019
+              <v-list-item-subtitle
+                v-if="currentUser.passwordLastChanged"
+                class="caption"
+              >
+                {{ currentUser.passwordLastChanged }}
               </v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>

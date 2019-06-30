@@ -25,6 +25,8 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 
-@Component
+@Component({
+  middleware: ['auth'],
+})
 export default class ChangePassword extends Vue {}
 </script>

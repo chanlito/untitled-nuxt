@@ -22,17 +22,23 @@ export default function(
 ) {
   const cache = new InMemoryCache();
 
-  const httpLink = new HttpLink({
+  const httpLinkOptions: HttpLink.Options = {
     uri: `http://localhost:${env.PORT}/graphql`,
     credentials: 'include',
-  });
+  };
+
+  if (process.server) {
+    httpLinkOptions.headers = req.headers;
+  }
+
+  const httpLink = new HttpLink(httpLinkOptions);
 
   const link = from([httpLink]);
 
   const apolloClient = new ApolloClient({
     cache,
     link,
-    connectToDevTools: true,
+    connectToDevTools: process.client,
     ssrMode: true,
   });
 

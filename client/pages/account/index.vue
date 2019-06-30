@@ -77,13 +77,13 @@
           <v-divider inset />
 
           <!-- Gender -->
-          <v-list-item to="#">
+          <v-list-item :to="{ name: 'account-change-gender' }">
             <v-list-item-avatar>
               <v-icon v-text="'mdi-gender-male-female'" />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
-                Rather not say
+                {{ currentUser.gender ? currentUser.gender : 'Rather not say' }}
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>

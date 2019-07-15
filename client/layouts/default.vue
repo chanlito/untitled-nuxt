@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <!-- Application Top Bar -->
-    <v-app-bar app clipped-left color="primary" dark>
-      <v-app-bar-nav-icon class="hidden-lg-and-up" @click="toggleDrawer" />
+    <v-app-bar app color="primary" clipped-left dark flat>
+      <v-app-bar-nav-icon @click="toggleDrawer" />
       <v-toolbar-title class="title" v-text="appBar.title" />
       <v-spacer />
       <vv-app-bar-menu />
@@ -11,15 +11,15 @@
     <v-content>
       <v-container fluid>
         <v-layout>
-          <v-flex xs12 sm12 md8 lg8 xl8 offset-md2 offset-lg2 offset-xl2>
+          <v-flex>
             <nuxt />
           </v-flex>
         </v-layout>
       </v-container>
     </v-content>
 
-    <v-navigation-drawer v-model="drawer" app clipped :width="280">
-      <vv-navigation-drawer-list />
+    <v-navigation-drawer v-model="drawer" app clipped :mini-variant="mini">
+      <vv-navigation-drawer-list :mini-variant="mini" />
     </v-navigation-drawer>
   </v-app>
 </template>
@@ -31,9 +31,15 @@ import { AppBarMixin } from '@/mixins';
 @Component
 export default class DefaultLayout extends mixins(AppBarMixin) {
   drawer: boolean | null = null;
+  mini = false;
 
   toggleDrawer() {
-    this.drawer = !this.drawer;
+    if (this.$vuetify.breakpoint.lgAndUp) {
+      this.mini = !this.mini;
+    } else {
+      this.mini = false;
+      this.drawer = !this.drawer;
+    }
   }
 }
 </script>
@@ -47,6 +53,6 @@ export default class DefaultLayout extends mixins(AppBarMixin) {
 <style lang="sass" scoped>
 .v-toolbar__title
   &.title
-    +screen(lg-and-up)
-      padding-left: 0 !important
+    +screen(md-and-down)
+      padding-left: 16px !important
 </style>

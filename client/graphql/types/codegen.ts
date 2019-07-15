@@ -1,7 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { Context } from './context';
 export type Maybe<T> = T | null;
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -114,6 +113,7 @@ export type User = {
   password: Scalars['String'];
   passwordLastChanged?: Maybe<Scalars['String']>;
   fullName: Scalars['String'];
+  avatar?: Maybe<Scalars['String']>;
   dateOfBirth?: Maybe<Scalars['String']>;
   gender?: Maybe<Gender>;
   role: Role;
@@ -331,6 +331,7 @@ export type UserResolvers<
     ContextType
   >;
   fullName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  avatar?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   dateOfBirth?: Resolver<
     Maybe<ResolversTypes['String']>,
     ParentType,

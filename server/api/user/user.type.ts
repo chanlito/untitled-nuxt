@@ -28,6 +28,9 @@ export class User implements IUser {
   readonly fullName: string;
 
   @Field({ nullable: true })
+  readonly avatar?: string;
+
+  @Field({ nullable: true })
   dateOfBirth?: string;
 
   @Field(type => Gender, { nullable: true })

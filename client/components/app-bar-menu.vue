@@ -3,10 +3,7 @@
     <template #activator="{ on }">
       <v-btn icon v-on="on">
         <v-avatar :size="32">
-          <v-img
-            lazy-src="https://i.pravatar.cc/64"
-            src="https://i.pravatar.cc/512"
-          />
+          <v-img :lazy-src="currentUser.avatar" :src="currentUser.avatar" />
         </v-avatar>
       </v-btn>
     </template>
@@ -14,10 +11,7 @@
       <v-layout class="pa-3">
         <v-flex align-self-center shrink>
           <v-avatar :size="96">
-            <v-img
-              lazy-src="https://i.pravatar.cc/64"
-              src="https://i.pravatar.cc/512"
-            />
+            <v-img :lazy-src="currentUser.avatar" :src="currentUser.avatar" />
           </v-avatar>
         </v-flex>
         <v-flex class="pl-3">

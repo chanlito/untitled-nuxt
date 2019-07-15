@@ -9,7 +9,9 @@ import colors from 'vuetify/es5/util/colors';
 import Vuetify from 'vuetify/lib';
 
 export default async function({ app, req }: Context & { req: any }) {
-  Vue.use(Vuetify);
+  const useOptions: VuetifyUseOptions = {};
+
+  Vue.use(Vuetify, useOptions);
 
   let dark: boolean;
 
@@ -25,7 +27,8 @@ export default async function({ app, req }: Context & { req: any }) {
     dark = theme.variant === 'DARK';
   }
 
-  const options: VuetifyUseOptions = {
+  // eslint-disable-next-line require-atomic-updates
+  app.vuetify = new Vuetify({
     theme: {
       dark,
       themes: {
@@ -41,7 +44,5 @@ export default async function({ app, req }: Context & { req: any }) {
         },
       },
     },
-  };
-
-  app.vuetify = new (Vuetify as any)(options);
+  });
 }

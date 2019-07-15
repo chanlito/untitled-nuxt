@@ -18,9 +18,10 @@ export const UserFields = gql`
     email
     emailConfirmed
     fullName
+    passwordLastChanged
+    avatar
     dateOfBirth
     gender
-    passwordLastChanged
     role
     createdAt
   }

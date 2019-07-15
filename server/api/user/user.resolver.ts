@@ -1,5 +1,13 @@
 import { Request } from 'express';
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
+import {
+  Arg,
+  Authorized,
+  Ctx,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+} from 'type-graphql';
 
 import { UpdateFullNameInput, User, UserService } from '.';
 import { CurrentUser } from '../auth';
@@ -7,6 +15,14 @@ import { CurrentUser } from '../auth';
 @Resolver(of => User)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
+
+  @FieldResolver()
+  avatar(@CurrentUser() currentUser: User) {
+    return (
+      currentUser.avatar ||
+      `https://avatars.dicebear.com/v2/identicon/${currentUser.fullName}.svg`
+    );
+  }
 
   @Query(returns => User)
   @Authorized()

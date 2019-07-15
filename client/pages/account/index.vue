@@ -21,7 +21,7 @@
         </v-card-title>
         <v-list two-line>
           <!-- Photo -->
-          <v-list-item to="#" style="height: 92px">
+          <v-list-item disabled style="height: 92px">
             <v-list-item-avatar>
               <v-icon v-text="'mdi-camera-outline'" />
             </v-list-item-avatar>
@@ -33,8 +33,8 @@
             <v-list-item-avatar style="margin-right: 16px">
               <v-avatar :size="64">
                 <v-img
-                  lazy-src="https://i.pravatar.cc/64"
-                  src="https://i.pravatar.cc/512"
+                  :lazy-src="currentUser.avatar"
+                  :src="currentUser.avatar"
                 />
               </v-avatar>
             </v-list-item-avatar>
@@ -60,13 +60,13 @@
           <v-divider inset />
 
           <!-- Birthday -->
-          <v-list-item to="#">
+          <v-list-item disabled>
             <v-list-item-avatar>
               <v-icon v-text="'mdi-calendar-outline'" />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
-                April, 22 1992
+                N/A
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
@@ -77,13 +77,14 @@
           <v-divider inset />
 
           <!-- Gender -->
-          <v-list-item :to="{ name: 'account-change-gender' }">
+          <v-list-item disabled>
             <v-list-item-avatar>
               <v-icon v-text="'mdi-gender-male-female'" />
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
-                {{ currentUser.gender ? currentUser.gender : 'Rather not say' }}
+                N/A
+                <!-- {{ currentUser.gender ? currentUser.gender : 'Rather not say' }} -->
               </v-list-item-title>
             </v-list-item-content>
             <v-list-item-action>
@@ -94,7 +95,7 @@
           <v-divider inset />
 
           <!-- Password -->
-          <v-list-item :to="{ name: 'account-change-password' }">
+          <v-list-item disabled>
             <v-list-item-avatar>
               <v-icon v-text="'mdi-lock-outline'" />
             </v-list-item-avatar>
@@ -124,7 +125,7 @@
         </v-card-title>
         <v-list two-line>
           <!-- Email -->
-          <v-list-item to="#">
+          <v-list-item disabled>
             <v-list-item-avatar>
               <v-icon v-text="'mdi-email-outline'" />
             </v-list-item-avatar>
@@ -141,7 +142,7 @@
           <v-divider inset />
 
           <!-- Email Confirmation -->
-          <v-list-item>
+          <v-list-item disabled>
             <v-list-item-avatar>
               <v-icon
                 v-text="
@@ -172,7 +173,7 @@
 
     <section>
       <v-layout justify-center>
-        <v-btn color="error" text>
+        <v-btn color="error" disabled text>
           <v-icon class="pr-1" v-text="'mdi-delete'" />
           <span>Delete Account</span>
         </v-btn>

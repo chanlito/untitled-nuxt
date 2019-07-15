@@ -4,9 +4,12 @@
       <v-btn exact icon :to="backTo">
         <v-icon :size="24" v-text="'mdi-arrow-left'" />
       </v-btn>
-      <v-toolbar-title class="pl-3 headline" v-text="title" />
+      <v-toolbar-title
+        class="headline navigation-toolbar__title"
+        v-text="title"
+      />
     </nav>
-    <v-divider class="mx-2" />
+    <v-divider />
   </div>
 </template>
 
@@ -28,4 +31,8 @@ export default class NavigationHeader extends Vue {
   height: 56px
   display: flex
   align-items: center
+  margin: 0 -6px
+
+  &__title
+    padding-left: 15px
 </style>

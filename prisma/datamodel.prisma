@@ -3,10 +3,11 @@ type User {
   email: String! @unique
   emailConfirmed: Boolean! @default(value: false)
   fullName: String!
-  gender: Gender
-  dateOfBirth: DateTime
   password: String!
   passwordLastChanged: DateTime
+  avatar: String
+  gender: Gender
+  dateOfBirth: DateTime
   role: Role!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt

@@ -20,7 +20,7 @@
     "apollo-link-http": "^1.5.15",
     "apollo-server-core": "^2.6.9",
     "apollo-server-express": "^2.6.9",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "boxen": "^4.1.0",
     "chalk": "^2.4.2",
     "class-validator": "^0.9.1",

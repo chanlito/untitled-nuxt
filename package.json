@@ -35,7 +35,7 @@
     "lodash": "^4.17.14",
     "mjml": "^4.4.0-beta.2",
     "moment": "^2.24.0",
-    "nanoid": "^2.0.3",
+    "nanoid": "^3.1.31",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.3.0",
     "nuxt": "^2.8.1",
